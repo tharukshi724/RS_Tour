@@ -1,3 +1,3 @@
 <?php
-
-require_once __DIR__ . '/public/index.php';
+header('Location: public/' . (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : ''));
+exit;

@@ -1,0 +1,17 @@
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="index.php" class="brand">
+            <span class="brand-mark"><?= htmlspecialchars(BRAND_INITIAL) ?></span>
+            <span class="brand-name"><?= htmlspecialchars(SITE_NAME) ?></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.php">Home</a>
+            <a href="index.php#how">How it works</a>
+            <a href="index.php#contact">Contact Us</a>
+            <a href="index.php#vehicles" class="nav-cta">Book now</a>
+        </div>
+    </div>
+</nav>
