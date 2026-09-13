@@ -10,38 +10,37 @@
     '/index.php'
 ); ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
+<body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
 
 <?php require __DIR__ . '/partials/header.php'; ?>
 
 <header class="hero">
     <div class="hero-bg">
-        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2000&q=85" alt="" aria-hidden="true">
+        <img src="images/bg.jpeg" alt="" aria-hidden="true">
         <div class="hero-bg-tint"></div>
     </div>
     <div class="hero-inner">
-        <p class="hero-eyebrow"><?= htmlspecialchars(SITE_TAGLINE) ?></p>
-        <h1>Pick a ride.<br>Set your route.<br><em>Go.</em></h1>
+        <p class="hero-eyebrow"><span class="eyebrow-dash" aria-hidden="true"></span> <?= htmlspecialchars(SITE_TAGLINE) ?></p>
+        <h1>Enjoy Your<br>Vacation<br>With <em>Us.</em></h1>
+        <p class="hero-tagline-si"><span id="siTagline" lang="si"><?= htmlspecialchars(SITE_TAGLINE_SI) ?></span></p>
         <p class="hero-sub">Cars, SUVs, vans and bikes ready across the city. Set your pickup and drop on the map, and we'll confirm the rest over WhatsApp — no forms, no waiting on hold.</p>
         <div class="hero-actions">
             <a href="https://wa.me/<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" class="btn btn-go"><?= icon_svg('whatsapp') ?> Book with WhatsApp</a>
             <a href="#vehicles" class="btn btn-primary"><?= icon_svg('search') ?> Book online now</a>
         </div>
         <div class="hero-stats">
-                <div class="hero-stat"><b><?= count($vehicles) ?></b><span>vehicles listed</span></div>
-                <div class="hero-stat"><b>24/7</b><span>WhatsApp booking</span></div>
-                <div class="hero-stat"><b>&lt;10 min</b><span>average reply time</span></div>
-            </div>
-        
+            <div class="hero-stat"><b><?= count($vehicles) ?></b><span>vehicles listed</span></div>
+            <div class="hero-stat"><b>24/7</b><span>WhatsApp booking</span></div>
+            <div class="hero-stat"><b>&lt;10 min</b><span>average reply time</span></div>
+        </div>
     </div>
 
     <!-- Quick-book widget — floats over the bottom edge of the hero -->
-
+  
 </header>
-
 
 <main>
     <!-- ============================== SERVICES ============================== -->
@@ -382,7 +381,7 @@
 
 <?php require __DIR__ . '/partials/footer.php'; ?>
 
-<script src="js/locations-data.js"></script>
-<script src="js/main.js"></script>
+<script src="js/locations-data.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="js/main.js?v=<?= ASSET_VERSION ?>"></script>
 </body>
 </html>

@@ -1,8 +1,11 @@
 <nav class="navbar" id="navbar">
     <div class="navbar-inner">
         <a href="index.php" class="brand">
-            <span class="brand-mark"><?= htmlspecialchars(BRAND_INITIAL) ?></span>
-            <span class="brand-name"><?= htmlspecialchars(SITE_NAME) ?></span>
+            <img class="brand-mark" src="images/logo_new.png?v=<?= ASSET_VERSION ?>" alt="<?= htmlspecialchars(SITE_NAME) ?> logo" width="46" height="26">
+            <span class="brand-text">
+                <span class="brand-name"><?= htmlspecialchars(SITE_NAME) ?></span>
+                <span class="brand-slogan"><?= htmlspecialchars(SITE_SLOGAN) ?></span>
+            </span>
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
             <span></span><span></span><span></span>
