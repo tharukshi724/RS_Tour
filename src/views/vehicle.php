@@ -10,9 +10,9 @@
     '/index.php?page=vehicle&id=' . $vehicle['id']
 ); ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=<?= ASSET_VERSION ?>">
 </head>
 <body data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
 
@@ -156,8 +156,8 @@
     window.SITE_NAME = "<?= htmlspecialchars(SITE_NAME) ?>";
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="js/locations-data.js"></script>
-<script src="js/main.js"></script>
-<script src="js/vehicle.js"></script>
+<script src="js/locations-data.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="js/main.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="js/vehicle.js?v=<?= ASSET_VERSION ?>"></script>
 </body>
 </html>

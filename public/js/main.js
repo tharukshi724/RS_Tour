@@ -9,6 +9,22 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    var siTagline = document.getElementById('siTagline');
+    if (siTagline) {
+        var startSiLoop = function () {
+            var fullWidth = siTagline.scrollWidth;
+            if (fullWidth > 0) {
+                siTagline.style.setProperty('--si-width', fullWidth + 'px');
+                siTagline.classList.add('is-looping');
+            }
+        };
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(startSiLoop);
+        } else {
+            setTimeout(startSiLoop, 300);
+        }
+    }
+
     // Mobile menu toggle
     var toggle = document.getElementById('navToggle');
     var links = document.getElementById('navLinks');

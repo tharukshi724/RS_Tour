@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../src/config/bootstrap.php';
+require_once __DIR__ . '/../../src/config/bootstrap.php';
 header('Content-Type: application/xml; charset=utf-8');
 $base = rtrim(SITE_URL, '/');
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";

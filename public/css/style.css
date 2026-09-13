@@ -1,6 +1,5 @@
 
 :root {
-    /* Page surfaces — white, with a cool teal-gray step for cards/panels */
     --asphalt-900: #ffffff;
     --asphalt-800: #f3f8f7;
     --asphalt-700: #e0eae8;
@@ -9,16 +8,16 @@
     /* Text */
     --paper: #12282b;
     --muted: #62757a;
-    --ink: #ffffff; /* text/icons that sit on a vivid or dark fill (buttons, navbar, banners) */
+    --ink: #ffffff;
 
     /* Brand accents */
-    --brand-teal: #103b3e;     
-    --brand-teal-dark: #0a2a2c; 
-    --headlight: #ea6a34;     
-    --gold-text: #d1531f;      
-    --go: #25d366;              
-                                   
-                                    
+    --brand-teal: #103b3e;      /* structural dark fill — navbar, footer, banner */
+    --brand-teal-dark: #0a2a2c; /* deeper shade for gradients */
+    --headlight: #ea6a34;       /* primary accent fill — buttons, icon chips, active states */
+    --gold-text: #d1531f;       /* accent text/icons on light backgrounds (prices, links) */
+    --go: #25d366;              /* WhatsApp actions specifically — kept as WhatsApp's own green
+                                     for instant recognition, the one deliberate deviation from
+                                     the two-tone teal/orange theme */
     --danger: #d9483a;
 
     --cat-car: #ea6a34;
@@ -27,8 +26,8 @@
     --cat-bike: #f0a479;
     --cat-luxury: #1c5a5e;
 
-     --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-    --font-body: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-display: "Playfair Display", Georgia, serif;
+    --font-body: "Plus Jakarta Sans", "Segoe UI", sans-serif;
 
     --radius-img: 14px;
     --container: 1180px;
@@ -71,34 +70,43 @@ h1, h2, h3 {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    background: var(--brand-teal);
-    transition: box-shadow 0.3s ease;
+    background: var(--asphalt-900);
+    border-bottom: 1px solid var(--asphalt-700);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .navbar.is-scrolled {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(16,59,62,0.12);
 }
+
+body.has-hero .navbar:not(.is-scrolled) {
+    background: linear-gradient(to bottom, rgba(8,14,13,0.6), rgba(8,14,13,0.15) 70%, transparent);
+    border-bottom-color: transparent;
+}
+body.has-hero .navbar:not(.is-scrolled) .brand-name { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+body.has-hero .navbar:not(.is-scrolled) .brand-slogan { color: var(--headlight); text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+body.has-hero .navbar:not(.is-scrolled) .nav-links a:not(.nav-cta) { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+body.has-hero .navbar:not(.is-scrolled) .nav-toggle span { background: #fff; }
 .navbar-inner {
     max-width: var(--container);
     margin: 0 auto;
-    padding: 14px 24px;
+    padding: 10px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 .brand { display: flex; align-items: center; gap: 10px; }
 .brand-mark {
-    width: 34px; height: 34px;
-    background: var(--ink);
-    color: var(--headlight);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 20px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 8px;
+    display: block;
+    width: auto;
+    height: 34px;
+    flex-shrink: 0;
+    object-fit: contain;
 }
-.brand-name { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.5px; color: var(--ink); }
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: 0.3px; color: var(--brand-teal); transition: color 0.3s ease; }
+.brand-slogan { font-size: 11px; font-weight: 700; color: var(--gold-text); text-transform: uppercase; letter-spacing: 1px; }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
-.nav-links a { color: var(--ink); opacity: 0.8; transition: opacity 0.2s; font-weight: 500; }
+.nav-links a { color: var(--paper); opacity: 0.8; transition: opacity 0.2s, color 0.3s ease; font-weight: 500; }
 .nav-links a:hover { opacity: 1; }
 .nav-cta {
     background: var(--headlight);
@@ -115,17 +123,17 @@ h1, h2, h3 {
     flex-direction: column; justify-content: space-between;
     padding: 0;
 }
-.nav-toggle span { display: block; height: 2px; background: var(--ink); border-radius: 2px; }
+.nav-toggle span { display: block; height: 2px; background: var(--paper); border-radius: 2px; }
 
 @media (max-width: 780px) {
     .nav-toggle { display: flex; }
     .nav-links {
         position: absolute; top: 100%; left: 0; right: 0;
-        background: var(--brand-teal);
+        background: var(--asphalt-900);
         flex-direction: column; align-items: stretch;
         padding: 12px 24px 22px;
         gap: 16px;
-        border-bottom: 1px solid rgba(255,255,255,0.12);
+        border-bottom: 1px solid var(--asphalt-700);
         display: none;
     }
     .nav-links.is-open { display: flex; }
@@ -137,98 +145,29 @@ h1, h2, h3 {
    ========================================================================== */
 .hero {
     position: relative;
-    min-height: 680px;
-    padding-bottom: 70px;
-    background: var(--brand-teal-dark);
-    overflow: hidden;
+    padding-bottom: 70px; /* room for the booking widget to overlap the edge */
+    background: #12201f;
 }
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-}
-.hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
+.hero-bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; }
 .hero-bg-tint {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(7, 40, 43, 0.94) 0%, rgba(7, 40, 43, 0.72) 42%, rgba(7, 40, 43, 0.28) 100%);
+    background:
+        linear-gradient(100deg, rgba(10,16,15,0.88) 0%, rgba(10,16,15,0.72) 45%, rgba(10,16,15,0.4) 75%, rgba(10,16,15,0.25) 100%),
+        linear-gradient(180deg, rgba(10,16,15,0.15), rgba(10,16,15,0.55) 92%);
 }
-/* Soft floating color blobs — pure decoration, ambient life behind the text */
-.hero-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(50px);
-    z-index: 0;
-    opacity: 0.55;
-    animation: floatBlob 9s ease-in-out infinite;
-}
-.hero-blob-a { width: 220px; height: 220px; left: 6%; top: 18%; background: radial-gradient(circle, rgba(234,106,52,0.5), transparent 70%); animation-delay: 0s; }
-.hero-blob-b { width: 160px; height: 160px; left: 28%; top: 62%; background: radial-gradient(circle, rgba(16,59,62,0.35), transparent 70%); animation-delay: 2s; animation-duration: 11s; }
-.hero-blob-c { width: 130px; height: 130px; left: 12%; top: 74%; background: radial-gradient(circle, rgba(47,128,237,0.18), transparent 70%); animation-delay: 4s; animation-duration: 13s; }
-@keyframes floatBlob {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(18px, -22px) scale(1.08); }
-}
-@media (prefers-reduced-motion: reduce) { .hero-blob { animation: none; } }
 
 .hero-inner {
     position: relative;
     z-index: 2;
     max-width: var(--container);
     margin: 0 auto;
-    min-height: 610px;
-    padding: 130px 24px 70px;
+    padding: 150px 24px 0;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
 }
-.hero-inner-split {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 40px;
-    align-items: center;
-}
-@media (max-width: 900px) { .hero-inner-split { grid-template-columns: 1fr; } }
-
-/* Photo collage — two overlapping stacked photos + a small accent square,
-   with a soft diagonal light sweep, echoing the reference site's banner
-   without a literal copy of its photo treatment. */
-.hero-collage { position: relative; height: 460px; display: none; }
-@media (min-width: 901px) { .hero-collage { display: block; } }
-.hero-collage-img {
-    position: absolute;
-    object-fit: cover;
-    border-radius: 18px;
-    box-shadow: 0 24px 48px rgba(16,59,62,0.18);
-}
-.hero-collage-a { width: 78%; height: 92%; top: 0; right: 0; z-index: 1; }
-.hero-collage-b { width: 52%; height: 46%; bottom: 0; left: 0; z-index: 2; border: 5px solid var(--asphalt-900); }
-.hero-collage-c { width: 32%; height: 32%; top: 6%; left: -4%; z-index: 3; border: 5px solid var(--asphalt-900); transform: rotate(-6deg); }
-.hero-collage-beam {
-    position: absolute;
-    top: 0; right: 6%;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.5), transparent);
-    transform: skewX(-14deg);
-    animation: sweep 3.6s ease-in-out 0.4s 1;
-    z-index: 4;
-    pointer-events: none;
-}
-@keyframes sweep {
-    0% { right: -20%; opacity: 0; }
-    15% { opacity: 1; }
-    60% { right: 90%; opacity: 1; }
-    100% { right: 90%; opacity: 0; }
-}
-@media (max-width: 900px) {
+.hero-inner > * { max-width: 640px; }
+@media (max-width: 640px) {
     .hero-inner { padding-top: 120px; }
 }
 
@@ -248,32 +187,65 @@ h1, h2, h3 {
 .hero-stats { animation-delay: 0.65s; }
 
 .hero-eyebrow {
-    color: var(--gold-text);
-    font-size: 15px;
-    font-weight: 600;
+    color: var(--headlight);
+    font-size: 13.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin: 0 0 18px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(234, 106, 52, 0.16);
-    padding: 7px 14px 7px 10px;
-    border-radius: 999px;
+    gap: 10px;
 }
+.eyebrow-dash { display: inline-block; width: 26px; height: 2px; background: var(--headlight); }
 .hero h1 {
-    font-size: clamp(48px, 8vw, 108px);
-    color: var(--ink);
-    max-width: 14ch;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+    font-size: clamp(44px, 7vw, 88px);
+    color: #fff;
+    line-height: 1.05;
 }
 .hero h1 em {
     font-style: normal;
-    color: var(--gold-text);
+    color: var(--headlight);
+}
+
+.hero-tagline-si {
+    margin: 14px 0 0;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.25s;
+    opacity: 0;
+}
+#siTagline {
+    display: inline-block;
+    font-family: 'Noto Sans Sinhala', sans-serif;
+    font-size: clamp(18px, 2.4vw, 26px);
+    font-weight: 700;
+    color: var(--headlight);
+    text-shadow: 0 2px 16px rgba(234,106,52,0.35);
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 0;
+    border-right: 3px solid var(--headlight);
+    padding-right: 2px;
+}
+#siTagline.is-looping {
+    animation: siTypeLoop 6s infinite;
+}
+@keyframes siTypeLoop {
+    0%   { width: 0; animation-timing-function: steps(26, end); }
+    38%  { width: var(--si-width, 220px); animation-timing-function: steps(1, end); }
+    62%  { width: var(--si-width, 220px); animation-timing-function: steps(26, end); }
+    92%  { width: 0; animation-timing-function: steps(1, end); }
+    100% { width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #siTagline { width: auto !important; animation: none !important; border-right: none; }
 }
 .hero-sub {
     color: rgba(255,255,255,0.82);
-    font-size: 18px;
+    font-size: 17px;
     max-width: 46ch;
-    margin: 26px 0 36px;
+    margin: 22px 0 32px;
 }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 .btn {
@@ -320,11 +292,11 @@ h1, h2, h3 {
 .hero-stats {
     display: flex;
     gap: 40px;
-    margin-top: 64px;
+    margin-top: 56px;
     flex-wrap: wrap;
 }
-.hero-stat b { font-family: var(--font-display); font-size: 34px; display: block; color: var(--ink); }
-.hero-stat span { color: rgba(255,255,255,0.72); font-size: 14px; }
+.hero-stat b { font-family: var(--font-display); font-size: 32px; display: block; color: #fff; }
+.hero-stat span { color: rgba(255,255,255,0.65); font-size: 13.5px; }
 
 /* Quick-book widget — a floating card overlapping the hero's bottom edge */
 .book-widget {
@@ -836,9 +808,7 @@ a.footer-contact-row:hover { color: var(--gold-text); }
     font-size: 22px; line-height: 1; padding: 4px;
 }
 .map-modal-close:hover { color: var(--paper); }
-/* Everything between the header and footer scrolls independently, so the
-   Confirm button in the footer is always reachable no matter how tall
-   the map + controls get on short viewports. */
+
 .map-modal-scroll {
     flex: 1;
     min-height: 0;
@@ -990,7 +960,7 @@ a.footer-contact-row:hover { color: var(--gold-text); }
     content: "";
     position: absolute; left: 0; right: 100%; bottom: -4px;
     height: 2px;
-    background: var(--ink);
+    background: var(--gold-text);
     transition: right 0.2s ease;
 }
 .nav-links a:not(.nav-cta):hover::after { right: 0; }
