@@ -127,9 +127,16 @@ class ContentModel
     public static function packageImageUrl(array $package): string
     {
         foreach (['jpg', 'jpeg', 'png', 'webp'] as $ext) {
+            $rootFile = __DIR__ . '/../../public/images/' . $package['slug'] . '.' . $ext;
+            if (file_exists($rootFile)) {
+                return public_asset_url('images/' . $package['slug'] . '.' . $ext);
+            }
+        }
+
+        foreach (['jpg', 'jpeg', 'png', 'webp'] as $ext) {
             $file = __DIR__ . '/../../public/images/packages/' . $package['slug'] . '.' . $ext;
             if (file_exists($file)) {
-                return 'images/packages/' . $package['slug'] . '.' . $ext;
+                return public_asset_url('images/packages/' . $package['slug'] . '.' . $ext);
             }
         }
         return 'https://loremflickr.com/900/600/' . $package['image'] . '?lock=' . crc32($package['slug']);

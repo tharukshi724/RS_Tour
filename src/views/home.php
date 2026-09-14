@@ -11,7 +11,7 @@
 ); ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="public/css/style.css">
+<link rel="stylesheet" href="<?= htmlspecialchars(public_asset_url('css/style.css')) ?>">
 </head>
 <body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
 
@@ -19,7 +19,7 @@
 
 <header class="hero">
     <div class="hero-bg">
-        <img src="images/bg.jpeg" alt="" aria-hidden="true">
+        <img src="<?= htmlspecialchars(public_asset_url('images/bg.jpeg')) ?>" alt="" aria-hidden="true">
         <div class="hero-bg-tint"></div>
     </div>
     <div class="hero-inner">
@@ -240,7 +240,7 @@
 
 <?php require __DIR__ . '/partials/footer.php'; ?>
 
-<script src="public/js/locations-data.js?v=<?= ASSET_VERSION ?>"></script>
-<script src="public/js/main.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="<?= htmlspecialchars(public_asset_url('js/locations-data.js?v=' . ASSET_VERSION)) ?>"></script>
+<script src="<?= htmlspecialchars(public_asset_url('js/main.js?v=' . ASSET_VERSION)) ?>"></script>
 </body>
 </html>

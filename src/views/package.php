@@ -11,7 +11,7 @@
 ); ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=<?= ASSET_VERSION ?>">
+<link rel="stylesheet" href="<?= htmlspecialchars(public_asset_url('css/style.css?v=' . ASSET_VERSION)) ?>">
 </head>
 <body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
 
@@ -70,6 +70,6 @@
 
 <?php require __DIR__ . '/partials/footer.php'; ?>
 
-<script src="js/main.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="<?= htmlspecialchars(public_asset_url('js/main.js?v=' . ASSET_VERSION)) ?>"></script>
 </body>
 </html>

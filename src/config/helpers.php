@@ -9,6 +9,14 @@ function format_lkr(int $amount): string {
     return 'Rs. ' . number_format($amount) . ' / day';
 }
 
+function public_asset_url(string $path): string {
+    $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+    if (basename($base) !== 'public') {
+        $base .= '/public';
+    }
+    return ($base ? $base : '') . '/' . ltrim($path, '/');
+}
+
 // One inline SVG icon set, used everywhere via icon_svg('name') so markup
 // never repeats an icon's path data.
 function icon_svg(string $name): string {
