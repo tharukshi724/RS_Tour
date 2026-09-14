@@ -21,6 +21,11 @@ function dispatch(): void
             VehicleController::show($id);
             break;
 
+        case 'package':
+            $slug = $_GET['slug'] ?? '';
+            PackageController::show($slug);
+            break;
+
         case 'home':
         default:
             HomeController::index();

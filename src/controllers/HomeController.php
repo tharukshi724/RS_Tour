@@ -7,7 +7,7 @@ class HomeController
         $categories = VehicleModel::categories();
         $services = ContentModel::services();
         $routes = ContentModel::routes();
-        $tours = ContentModel::tours();
+        $packages = ContentModel::packages();
         $deals = ContentModel::deals();
         $whyUs = ContentModel::whyUs();
         $stats = ContentModel::stats();

@@ -19,4 +19,4 @@ define('CONTACT_LOCATION', 'Mawanella, 71500, Sri Lanka');
 define('SITE_URL', 'https://example.com'); // TODO: your real domain — used in SEO tags, sitemap, structured data
 define('VIDEO_EMBED_URL', ''); // TODO: e.g. 'https://www.youtube.com/embed/XXXXXXXXXXX' — leave blank to show the placeholder
 
-define('ASSET_VERSION', '8');
+define('ASSET_VERSION', '11');

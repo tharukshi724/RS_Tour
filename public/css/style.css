@@ -1020,30 +1020,87 @@ a.footer-contact-row:hover { color: var(--gold-text); }
 .route-price b { font-family: var(--font-display); font-size: 18px; color: var(--paper); font-weight: 700; }
 
 /* ==========================================================================
-   Day tours
+   Our Packages (homepage cards)
    ========================================================================== */
-.tour-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-@media (max-width: 900px) { .tour-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px) { .tour-grid { grid-template-columns: 1fr; } }
-.tour-card {
+.package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 900px) { .package-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .package-grid { grid-template-columns: 1fr; } }
+.package-card {
+    display: block;
     background: var(--asphalt-800);
     border: 1px solid var(--asphalt-700);
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.tour-card:hover { transform: translateY(-5px); box-shadow: 0 18px 36px rgba(28,26,20,0.10); }
-.tour-media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--asphalt-700); }
-.tour-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.35s ease, transform 0.4s ease; }
-.tour-media img.is-loaded { opacity: 1; }
-.tour-card:hover .tour-media img { transform: scale(1.06); }
-.tour-body { padding: 18px 20px 20px; }
-.tour-duration { display: flex; align-items: center; gap: 6px; color: var(--gold-text); font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-.tour-body h3 { font-size: 19px; margin-bottom: 8px; }
-.tour-body p { color: var(--muted); font-size: 14px; margin: 0 0 16px; line-height: 1.5; }
-.tour-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--asphalt-700); }
-.tour-price { font-family: var(--font-display); font-size: 19px; }
+.package-card:hover { transform: translateY(-5px); box-shadow: 0 18px 36px rgba(16,59,62,0.12); }
+.package-media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--asphalt-700); }
+.package-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.35s ease, transform 0.4s ease; }
+.package-media img.is-loaded { opacity: 1; }
+.package-card:hover .package-media img { transform: scale(1.06); }
+.package-icon-badge {
+    position: absolute; top: 14px; left: 14px;
+    width: 40px; height: 40px;
+    background: var(--headlight);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.package-body { padding: 18px 20px 20px; }
+.package-body h3 { font-size: 20px; margin-bottom: 8px; }
+.package-body p { color: var(--muted); font-size: 14px; margin: 0 0 16px; line-height: 1.5; }
+.package-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700; color: var(--gold-text); }
+.package-card:hover .package-link { color: var(--headlight); }
 .btn-sm { padding: 9px 18px; font-size: 13.5px; }
+
+/* Package detail page */
+.package-hero { position: relative; padding-bottom: 70px; }
+.package-hero .hero-inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.package-icon-badge-lg {
+    width: 64px; height: 64px;
+    background: var(--headlight);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 20px rgba(234,106,52,0.35);
+}
+.package-icon-badge-lg svg { width: 28px; height: 28px; }
+.package-hero h1 { color: #fff; font-size: clamp(36px, 5vw, 56px); margin-bottom: 14px; }
+.package-hero-summary { color: rgba(255,255,255,0.85); font-size: 17px; max-width: 56ch; margin: 0 auto; }
+.breadcrumb-light { color: rgba(255,255,255,0.75); }
+.breadcrumb-light.breadcrumb { align-self: flex-start; }
+
+.package-detail { padding-top: 8px; }
+.package-group { margin-bottom: 40px; }
+.package-group-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--headlight);
+    display: inline-block;
+}
+.package-item-list { display: flex; flex-direction: column; gap: 10px; }
+.package-item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-700);
+    border-radius: 12px;
+    padding: 14px 20px;
+    flex-wrap: wrap;
+}
+.package-item-name { font-size: 15px; font-weight: 600; flex: 1; min-width: 180px; }
+.package-item-price { font-family: var(--font-display); font-size: 18px; color: var(--gold-text); white-space: nowrap; }
+.package-item-price.is-free { color: #1f9d55; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; }
+@media (max-width: 480px) {
+    .package-item-row { flex-direction: column; align-items: stretch; text-align: center; }
+    .package-item-row .btn { width: 100%; justify-content: center; }
+}
+.package-grid-related { margin-top: 18px; }
 
 /* ==========================================================================
    Promo strip (under the vehicle grid)

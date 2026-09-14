@@ -10,14 +10,14 @@ class ContentModel
     {
         return [
             ['icon' => 'key', 'title' => 'Self-drive rental', 'desc' => 'Pick it up, drive yourself, drop it off — no driver, no schedule but your own.'],
-            ['icon' => 'headset', 'title' => 'Chauffeur rental', 'desc' => 'A local driver who knows the roads, so you can watch the scenery instead.'],
-            ['icon' => 'route', 'title' => 'Airport transfers', 'desc' => 'Direct pickup or drop at the airport, timed to your flight.'],
+            ['icon' => 'plane', 'title' => 'Airport', 'desc' => 'Direct pickup or drop at the airport, timed to your flight.'],
+            ['icon' => 'heart', 'title' => 'Wedding', 'desc' => 'Elegant transport for your special day, from arrivals to the grand exit.'],
+            ['icon' => 'star', 'title' => 'Graduation', 'desc' => 'Comfortable rides for graduation day, family pickups, and celebration travel.'],
             ['icon' => 'map', 'title' => 'Day tours', 'desc' => 'Sigiriya, Kandy, Galle and more — a driver, a route, and a full day sorted.'],
             ['icon' => 'car', 'title' => 'Long-distance hire', 'desc' => 'Multi-day road trips across the island, one vehicle for the whole route.'],
         ];
     }
 
-    // TODO: placeholder estimates — replace with your real route prices.
     public static function routes(): array
     {
         return [
@@ -30,14 +30,109 @@ class ContentModel
         ];
     }
 
-    // TODO: placeholder prices/durations — set your real tour pricing.
-    public static function tours(): array
+    // Real service packages — Airport transfers, BMICH events, Wedding hire.
+    // Each package has one or more priced groups; every line item gets its
+    // own WhatsApp inquire button on the detail page.
+    public static function packages(): array
     {
         return [
-            ['title' => 'Sigiriya & Dambulla Day Tour', 'tag' => 'sigiriya,rock', 'price' => 22000, 'duration' => 'Full day &middot; ~10 hrs', 'blurb' => 'The ancient rock fortress and the cave temples, in one long day out from Colombo.'],
-            ['title' => 'Galle Day Trip via Bentota', 'tag' => 'galle,fort', 'price' => 18000, 'duration' => 'Full day &middot; ~9 hrs', 'blurb' => 'Coastal drive down to the fort, with a stop at Bentota beach on the way back.'],
-            ['title' => 'Kandy & Peradeniya Tour', 'tag' => 'kandy,temple', 'price' => 16000, 'duration' => 'Full day &middot; ~8 hrs', 'blurb' => 'The Temple of the Tooth and the botanical gardens, at an easy pace.'],
+            [
+                'slug' => 'airport',
+                'title' => 'Airport',
+                'icon' => 'route',
+                'image' => 'airport,departures',
+                'summary' => 'Drop-off, pickup, or a round trip to the airport — pick the vehicle that fits your group.',
+                'groups' => [
+                    [
+                        'label' => 'Drop Only',
+                        'items' => [
+                            ['name' => 'Alto, WagonR', 'price' => 12000],
+                            ['name' => 'Mini Van (Every)', 'price' => 13000],
+                            ['name' => 'Normal Van (Caravan, Dolphin)', 'price' => 15000],
+                            ['name' => 'Bus', 'price' => 15000],
+                        ],
+                    ],
+                    [
+                        'label' => 'Pickup Only',
+                        'items' => [
+                            ['name' => 'Alto, WagonR', 'price' => 12000],
+                            ['name' => 'Mini Van (Every)', 'price' => 13000],
+                            ['name' => 'Normal Van (Caravan, Dolphin)', 'price' => 15000],
+                            ['name' => 'Bus', 'price' => 15000],
+                        ],
+                    ],
+                    [
+                        'label' => 'Up & Down (Both ways)',
+                        'items' => [
+                            ['name' => 'Alto, WagonR', 'price' => 15000],
+                            ['name' => 'Mini Van (Every)', 'price' => 16000],
+                            ['name' => 'Normal Van (Caravan, Dolphin)', 'price' => 18000],
+                            ['name' => 'Bus', 'price' => 28500],
+                            ['name' => 'KDH', 'price' => 20000],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'bmich',
+                'title' => 'BMICH',
+                'icon' => 'map',
+                'image' => 'convention,hall',
+                'summary' => 'Transport for BMICH events — pick the vehicle size that fits your party.',
+                'groups' => [
+                    [
+                        'label' => null,
+                        'items' => [
+                            ['name' => 'Alto, WagonR', 'price' => 16500],
+                            ['name' => 'Mini Van (Every)', 'price' => 17500],
+                            ['name' => 'Normal Van (Caravan, Dolphin)', 'price' => 17500],
+                            ['name' => 'KDH', 'price' => 22000],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'wedding',
+                'title' => 'Wedding',
+                'icon' => 'car',
+                'image' => 'bride,wedding',
+                'summary' => 'A decorated vehicle for the big day, priced by distance — vehicle decoration included free.',
+                'groups' => [
+                    [
+                        'label' => 'Per Day Package',
+                        'items' => [
+                            ['name' => '20 km', 'price' => 14000],
+                            ['name' => '40 km', 'price' => 18000],
+                            ['name' => 'Vehicle Decoration', 'price' => null, 'free' => true],
+                        ],
+                    ],
+                ],
+            ],
         ];
+    }
+
+    public static function findPackage(string $slug): ?array
+    {
+        foreach (self::packages() as $p) {
+            if ($p['slug'] === $slug) return $p;
+        }
+        return null;
+    }
+
+    // Real photo if you've uploaded one to public/images/packages/{slug}.*,
+    // otherwise a generic (loosely-matching) stock photo as a placeholder.
+    // Stock-photo auto-matching can't reliably find a specific place like
+    // BMICH — dropping a real photo in that folder is the permanent fix,
+    // and needs no code change; this just starts picking it up.
+    public static function packageImageUrl(array $package): string
+    {
+        foreach (['jpg', 'jpeg', 'png', 'webp'] as $ext) {
+            $file = __DIR__ . '/../../public/images/packages/' . $package['slug'] . '.' . $ext;
+            if (file_exists($file)) {
+                return 'images/packages/' . $package['slug'] . '.' . $ext;
+            }
+        }
+        return 'https://loremflickr.com/900/600/' . $package['image'] . '?lock=' . crc32($package['slug']);
     }
 
     // PLACEHOLDER — seasonal-sounding offers, not live promotions.

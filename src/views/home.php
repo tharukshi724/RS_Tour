@@ -43,22 +43,9 @@
 </header>
 
 <main>
-    <!-- ============================== SERVICES ============================== -->
-    <section class="section" id="services">
-        <div class="container">
-            <div class="section-head reveal">
-                <div>
-                    <h2>Explore our services</h2>
-                    <p>Whichever way you'd rather travel, we've got a way to get you there.</p>
-                </div>
-            </div>
-            <div class="service-grid">
-                <?php foreach ($services as $s): require __DIR__ . '/partials/service-card.php'; endforeach; ?>
-            </div>
-        </div>
-    </section>
+   
 
-    <!-- ============================== VEHICLES ============================== -->
+ <!-- ============================== VEHICLES ============================== -->
     <section class="section section-alt" id="vehicles">
         <div class="container">
             <div class="section-head reveal">
@@ -90,80 +77,33 @@
         </div>
     </section>
 
-    <!-- ============================== HOW IT WORKS ============================== -->
-    <section class="section" id="how">
+     <!-- ============================== SERVICES ============================== -->
+    <section class="section" id="services">
         <div class="container">
             <div class="section-head reveal">
                 <div>
-                    <h2>How it works</h2>
-                    <p>Three steps between browsing and driving off.</p>
+                    <h2>Explore our services</h2>
+                    <p>Whichever way you'd rather travel, we've got a way to get you there.</p>
                 </div>
             </div>
-            <div class="steps">
-                <div class="step reveal">
-                    <div class="step-icon step-icon-blue"><?= icon_svg('search') ?></div>
-                    <b>1</b>
-                    <h3>Browse &amp; pick</h3>
-                    <p>Open a vehicle, look through the photos, and check it fits what you need.</p>
-                </div>
-                <div class="step reveal">
-                    <div class="step-icon step-icon-amber"><?= icon_svg('route') ?></div>
-                    <b>2</b>
-                    <h3>Set your route</h3>
-                    <p>Drop a pin for pickup and drop-off — use your current location, search an address, or tap the map.</p>
-                </div>
-                <div class="step reveal">
-                    <div class="step-icon step-icon-green"><?= icon_svg('whatsapp') ?></div>
-                    <b>3</b>
-                    <h3>Hire on WhatsApp</h3>
-                    <p>Hit "Hire on WhatsApp" and we'll confirm the price, dates and paperwork with you there.</p>
-                </div>
+            <div class="service-grid">
+                <?php foreach ($services as $s): require __DIR__ . '/partials/service-card.php'; endforeach; ?>
             </div>
         </div>
     </section>
 
-    <!-- ============================== ROUTES ============================== -->
-    <section class="section section-alt" id="routes">
-        <div class="container">
-            <div class="section-head reveal">
-                <div>
-                    <h2>Most requested routes</h2>
-                    <p>Rough one-way estimates for our most popular pickups — your quote may vary with vehicle and dates.</p>
-                </div>
-            </div>
-            <div class="route-list">
-                <?php foreach ($routes as $r): require __DIR__ . '/partials/route-row.php'; endforeach; ?>
-            </div>
-        </div>
-    </section>
 
-    <!-- ============================== DAY TOURS ============================== -->
-    <section class="section" id="tours">
+    <!-- ============================== OUR PACKAGES ============================== -->
+    <section class="section" id="packages">
         <div class="container">
             <div class="section-head reveal">
                 <div>
-                    <h2>Popular day tours</h2>
-                    <p>A vehicle, a driver, and a route already planned — just pick a day.</p>
+                    <h2>Our Packages</h2>
+                    <p>Fixed-price packages for airport transfers, events, and weddings — open one to see every option and price.</p>
                 </div>
             </div>
-            <div class="tour-grid">
-                <?php foreach ($tours as $t): require __DIR__ . '/partials/tour-card.php'; endforeach; ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================== BEST DEALS ============================== -->
-    <!-- PLACEHOLDER offers — see ContentModel::deals(). Replace with real ones. -->
-    <section class="section section-alt" id="deals">
-        <div class="container">
-            <div class="section-head reveal">
-                <div>
-                    <h2>Best deals this month</h2>
-                    <p class="placeholder-note">Sample offers for now — swap in your real current deals.</p>
-                </div>
-            </div>
-            <div class="deal-grid">
-                <?php foreach ($deals as $d): require __DIR__ . '/partials/deal-card.php'; endforeach; ?>
+            <div class="package-grid">
+                <?php foreach ($packages as $pkg): require __DIR__ . '/partials/package-card.php'; endforeach; ?>
             </div>
         </div>
     </section>
@@ -231,19 +171,7 @@
                         <button type="submit" class="btn btn-go">Ask on WhatsApp</button>
                     </form>
                 </div>
-                <div class="quote-card reveal">
-                    <h3>Request a detailed quote</h3>
-                    <p>Give us a few more details and we'll come back with an exact price.</p>
-                    <form class="quote-detail-form" id="quoteDetailForm">
-                        <div class="quote-form-row">
-                            <input type="text" name="name" placeholder="Your name" required>
-                            <input type="tel" name="phone" placeholder="WhatsApp number" required>
-                        </div>
-                        <input type="text" name="dates" placeholder="Pickup date &amp; number of days">
-                        <textarea name="message" placeholder="Vehicle type, route, anything else we should know" rows="3"></textarea>
-                        <button type="submit" class="btn btn-primary">Send request</button>
-                    </form>
-                </div>
+               
             </div>
         </div>
     </section>
@@ -277,61 +205,6 @@
         </div>
     </section>
 
-    <!-- ============================== AREAS SERVED ============================== -->
-    <section class="section" id="areas">
-        <div class="container">
-            <div class="section-head reveal">
-                <div>
-                    <h2>Rental &amp; tours across Sri Lanka</h2>
-                    <p>Based in Colombo, and happy to arrange pickup and drop-off across the island.</p>
-                </div>
-            </div>
-            <div class="areas-list reveal">
-                <?php foreach ($areas as $area): ?>
-                    <span class="area-chip"><?= icon_svg('pin') ?> <?= htmlspecialchars($area) ?></span>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================== ABOUT ============================== -->
-    <section class="section section-alt" id="about">
-        <div class="container about-grid">
-            <div class="reveal">
-                <h2>Your trusted travel partner in Sri Lanka</h2>
-                <p><?= htmlspecialchars(SITE_NAME) ?> rents out a checked, ready-to-go fleet across Colombo — self-drive if you want the freedom, or with a driver if you'd rather not deal with the traffic. Every booking is confirmed by a real person on WhatsApp, not a form that disappears into an inbox.</p>
-                <a href="#vehicles" class="btn btn-ghost">See the vehicles</a>
-            </div>
-            <div class="about-media reveal">
-                <img src="https://loremflickr.com/700/500/roadtrip,srilanka?lock=900" alt="On the road in Sri Lanka" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================== VIDEO ============================== -->
-    <!-- PLACEHOLDER — inert until VIDEO_EMBED_URL is set in config.php -->
-    <section class="section" id="video">
-        <div class="container">
-            <div class="section-head reveal">
-                <div>
-                    <h2>See <?= htmlspecialchars(SITE_NAME) ?> in action</h2>
-                    <?php if (!VIDEO_EMBED_URL): ?>
-                        <p class="placeholder-note">No video yet — this activates automatically once one is added.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php if (VIDEO_EMBED_URL): ?>
-                <div class="video-embed reveal">
-                    <iframe src="<?= htmlspecialchars(VIDEO_EMBED_URL) ?>" title="<?= htmlspecialchars(SITE_NAME) ?> video" allowfullscreen loading="lazy"></iframe>
-                </div>
-            <?php else: ?>
-                <button class="video-placeholder reveal" type="button" onclick="alert('Video coming soon!')">
-                    <img src="https://loremflickr.com/1200/675/srilanka,car?lock=910" alt="" loading="lazy">
-                    <span class="video-play"><?= icon_svg('play') ?></span>
-                </button>
-            <?php endif; ?>
-        </div>
-    </section>
 
     <!-- ============================== FAQ ============================== -->
     <section class="section section-alt" id="faq">
@@ -347,21 +220,7 @@
         </div>
     </section>
 
-    <!-- ============================== GUIDES ============================== -->
-    <!-- PLACEHOLDER topics — see ContentModel::guides(). No real posts yet. -->
-    <section class="section" id="guides">
-        <div class="container">
-            <div class="section-head reveal">
-                <div>
-                    <h2>Guides &amp; tips</h2>
-                    <p class="placeholder-note">Starter topics — real articles go here once they're written.</p>
-                </div>
-            </div>
-            <div class="guide-grid">
-                <?php foreach ($guides as $g): require __DIR__ . '/partials/guide-card.php'; endforeach; ?>
-            </div>
-        </div>
-    </section>
+   
 
     <!-- ============================== FINAL CTA BANNER ============================== -->
     <section class="cta-banner cta-banner-alt">

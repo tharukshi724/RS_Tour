@@ -12,6 +12,7 @@
         </button>
         <div class="nav-links" id="navLinks">
             <a href="index.php">Home</a>
+            <a href="index.php#packages">Our Packages</a>
             <a href="index.php#how">How it works</a>
             <a href="index.php#contact">Contact Us</a>
             <a href="index.php#vehicles" class="nav-cta">Book now</a>
