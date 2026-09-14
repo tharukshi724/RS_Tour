@@ -9,7 +9,7 @@ define('SITE_NAME', 'RS Tours');
 define('SITE_SLOGAN', 'Trust & Secure');
 define('SITE_TAGLINE', 'Self-drive & chauffeur rentals, Mawanella');
 define('SITE_TAGLINE_SI', 'නොසැලී පෙරටම......'); 
-define('LOGO_PATH', 'public/images/logo_new.png');
+define('LOGO_PATH', 'images/logo_new.png');
 
 define('WHATSAPP_NUMBER', '94714857998'); // +94 71 485 7998
 define('CONTACT_PHONE', '071 485 7998');
