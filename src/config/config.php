@@ -6,7 +6,7 @@
  */
 
 define('SITE_NAME', 'RS TOURS');
-define('SITE_TAGLINE', 'Self-drive & chauffeur rentals, Colombo');
+define('SITE_TAGLINE', 'Self-drive & chauffeur rentals, Mawanella');
 define('BRAND_INITIAL', 'R');
 define('WHATSAPP_NUMBER', '94771234567'); // TODO: your real WhatsApp business number, country code, no + or leading 0
 define('SITE_URL', 'https://example.com'); // TODO: your real domain — used in SEO tags, sitemap, structured data
