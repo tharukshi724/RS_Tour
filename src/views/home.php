@@ -19,7 +19,7 @@
 
 <header class="hero">
     <div class="hero-bg">
-        <img src="<?= htmlspecialchars(public_asset_url('public/images/bg.jpeg')) ?>" alt="" aria-hidden="true">
+        <img src="<?= htmlspecialchars(public_asset_url('images/bg.jpeg')) ?>" alt="" aria-hidden="true">
         <div class="hero-bg-tint"></div>
     </div>
     <div class="hero-inner">

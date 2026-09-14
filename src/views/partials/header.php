@@ -1,7 +1,7 @@
 <nav class="navbar" id="navbar">
     <div class="navbar-inner">
         <a href="index.php" class="brand">
-            <img class="brand-mark" src="<?= htmlspecialchars(public_asset_url('public/images/logo_new.png?v=' . ASSET_VERSION)) ?>" alt="<?= htmlspecialchars(SITE_NAME) ?> logo" width="46" height="26">
+            <img class="brand-mark" src="<?= htmlspecialchars(public_asset_url('images/logo_new.png?v=' . ASSET_VERSION)) ?>" alt="<?= htmlspecialchars(SITE_NAME) ?> logo" width="46" height="26">
             <span class="brand-text">
                 <span class="brand-name"><?= htmlspecialchars(SITE_NAME) ?></span>
                 <span class="brand-slogan"><?= htmlspecialchars(SITE_SLOGAN) ?></span>
