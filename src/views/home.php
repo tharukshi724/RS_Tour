@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars(SITE_NAME) ?> — Vehicle rentals in Colombo</title>
 <?php seo_head(
-    SITE_NAME . ' — Vehicle Rentals in Colombo',
-    'Rent cars, SUVs, vans and bikes in Colombo. Set your pickup and drop on the map and hire instantly on WhatsApp — no forms, no waiting.',
+    SITE_NAME . ' — Vehicle Rentals in Mawanella',
+    'Rent cars, SUVs, vans and bikes in Mawanella ,Alupotha, Ussanpitiya. Set your pickup and drop on the map and hire instantly on WhatsApp — no forms, no waiting.',
     '/index.php'
 ); ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="public/css/style.css">
 </head>
 <body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
 
@@ -240,7 +240,7 @@
 
 <?php require __DIR__ . '/partials/footer.php'; ?>
 
-<script src="js/locations-data.js?v=<?= ASSET_VERSION ?>"></script>
-<script src="js/main.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="public/js/locations-data.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="public/js/main.js?v=<?= ASSET_VERSION ?>"></script>
 </body>
 </html>

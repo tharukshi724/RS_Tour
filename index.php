@@ -1,3 +1,5 @@
 <?php
-header('Location: public/' . (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : ''));
-exit;
+require_once __DIR__ . '/src/config/bootstrap.php';
+require_once __DIR__ . '/src/routes/web.php';
+
+dispatch();
