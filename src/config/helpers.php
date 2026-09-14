@@ -1,9 +1,5 @@
 <?php
-/**
- * Small utilities shared across models, controllers and views.
- * Not a "model" (no vehicle/content data here) and not config (these are
- * functions, not settings) — kept together as the app's helper layer.
- */
+
 
 function category_slug(string $category): string {
     return strtolower(preg_replace('/[^a-z0-9]+/i', '-', $category));
@@ -39,6 +35,7 @@ function icon_svg(string $name): string {
         'car'       => '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13"/><rect x="2.5" y="13" width="19" height="5.5" rx="1.5"/><circle cx="7" cy="18.5" r="1.6"/><circle cx="17" cy="18.5" r="1.6"/></svg>',
         'play'      => '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
         'chevron-down' => '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+        'mail'      => '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
     ];
     return $icons[$name] ?? '';
 }
