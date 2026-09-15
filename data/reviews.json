@@ -1,0 +1,94 @@
+[
+    {
+        "id": "rv_f6768dd31db4",
+        "name": "Kaushalya Wickramasinghe",
+        "trip": "Airport hire",
+        "source": "whatsapp",
+        "rating": 5,
+        "lang": "en",
+        "text": "Thank you so much for the airport hire your company arranged for us with Mr. Sangeeth. Excellent timing, safe driving and great customer service. I highly recommend RS Tours for any sort of vehicle hiring needs.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00"
+    },
+    {
+        "id": "rv_c11a5543c3cc",
+        "name": "Thushara Aththanayake",
+        "trip": "Wedding hire, Gampola",
+        "source": "whatsapp",
+        "rating": 5,
+        "lang": "si",
+        "text": "ඇත්තටම මගේ වෙඩිං එකට මම කාර් එකක් ගත්තා. වෙඩිං එකේ වැඩ සේරම කරගෙන නුවර එළියෙත් ගිහින් දවස් 02ක් ඉඳලා ආවා. වාහනය ගත්ත දවස් 04ට මට ගියේ තෙල් වියදමත් එක්ක 18000ක් වගේ සුළු මුදලක්.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00",
+        "text_en": "I hired a car for my wedding. We got everything done, then drove up to Nuwara Eliya and stayed two days. For the four days I had the vehicle it cost me only about Rs. 18,000 - fuel included."
+    },
+    {
+        "id": "rv_e14ca9f1faaa",
+        "name": "Nalin Senevirathna",
+        "trip": "Wedding hire",
+        "source": "whatsapp",
+        "rating": 5,
+        "lang": "si",
+        "text": "කාර් එකත් සුපිරි, කිසි අවුලක් නැහැ. බය නැතුව යන්න පුළුවන්. මේ සමාගමට දිනෙන් දින හරියන්න ඕනි.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00",
+        "text_en": "The car was superb - not a single problem, you can travel without a worry. This company deserves to grow bigger by the day."
+    },
+    {
+        "id": "rv_cb2c4f2198f4",
+        "name": "Boyagama Vidyalaya staff",
+        "trip": "School trip, Kumbalwela",
+        "source": "whatsapp",
+        "rating": 5,
+        "lang": "si",
+        "text": "2025.08.12 දින කුඹල්වෙල චාරිකාවේ, රියදුරු ලෙස තම වගකීම මැනවින් ඉටු කල අජිත් මහතාට, පේරාදෙණිය බෝයගම විද්‍යාලයීය කාර්ය මණ්ඩලයේ හද පිරි ප්‍රණාමය පුදමි.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00",
+        "text_en": "Our heartfelt thanks to Mr. Ajith, who carried out his duty as driver so well on the Kumbalwela trip of 12 Aug 2025 - from the staff of Boyagama Vidyalaya, Peradeniya."
+    },
+    {
+        "id": "rv_b2657e85bedf",
+        "name": "Auto Kleen, Mawanella",
+        "trip": "Family trip, Galle & Matara",
+        "source": "whatsapp",
+        "rating": 5,
+        "lang": "en",
+        "text": "Great, thank you. Will get back for future travels. Good driver for a family trip.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00"
+    },
+    {
+        "id": "rv_d92741b7f21f",
+        "name": "GKUC",
+        "trip": "Staff bus hire",
+        "source": "whatsapp",
+        "rating": 5,
+        "lang": "en",
+        "text": "Your bus is superb. We'll give you all our hires from now on - our team is fully satisfied.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00"
+    },
+    {
+        "id": "rv_e6aa90c44543",
+        "name": "Sunee Gunasinghe",
+        "trip": "Group tour",
+        "source": "facebook",
+        "rating": 5,
+        "lang": "en",
+        "text": "This is the best transport service for your tours.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00"
+    },
+    {
+        "id": "rv_6fa09aeff8b5",
+        "name": "Sadali Randika",
+        "trip": "Bus tour",
+        "source": "facebook",
+        "rating": 5,
+        "lang": "si",
+        "text": "ඊළඟ පාරත් SENU ANGEL තමයි.",
+        "published": true,
+        "created_at": "2026-09-15T05:19:01+00:00",
+        "text_en": "Next trip too, it is Senu Angel for us."
+    }
+]
