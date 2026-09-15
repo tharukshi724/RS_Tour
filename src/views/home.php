@@ -10,8 +10,8 @@
     '/index.php'
 ); ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<?= htmlspecialchars(public_asset_url('css/style.css')) ?>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<?= htmlspecialchars(public_asset_url('css/style.css?v=' . ASSET_VERSION)) ?>">
 </head>
 <body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
 
@@ -28,11 +28,11 @@
         <p class="hero-tagline-si"><span id="siTagline" lang="si"><?= htmlspecialchars(SITE_TAGLINE_SI) ?></span></p>
         <p class="hero-sub">Cars, SUVs, vans and bikes ready across the city. Set your pickup and drop on the map, and we'll confirm the rest over WhatsApp — no forms, no waiting on hold.</p>
         <div class="hero-actions">
-            <a href="https://wa.me/<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" class="btn btn-go"><?= icon_svg('whatsapp') ?> Book with WhatsApp</a>
-            <a href="#vehicles" class="btn btn-primary"><?= icon_svg('search') ?> Book online now</a>
+            <a href="index.php?page=book&mode=whatsapp" class="btn btn-go"><?= icon_svg('whatsapp') ?> Book with WhatsApp</a>
+            <a href="index.php?page=book&mode=online" class="btn btn-primary"><?= icon_svg('search') ?> Book online now</a>
         </div>
         <div class="hero-stats">
-            <div class="hero-stat"><b><?= count($vehicles) ?></b><span>vehicles listed</span></div>
+            <div class="hero-stat"><b><?= VehicleModel::unitCount() ?></b><span>vehicles in our fleet</span></div>
             <div class="hero-stat"><b>24/7</b><span>WhatsApp booking</span></div>
             <div class="hero-stat"><b>&lt;10 min</b><span>average reply time</span></div>
         </div>
@@ -50,8 +50,8 @@
         <div class="container">
             <div class="section-head reveal">
                 <div>
-                    <h2>Choose the right vehicle</h2>
-                    <p>Every listing below is ready to book. Open one to see more photos, pick your locations, and hire it on WhatsApp.</p>
+                    <h2>Our vehicles</h2>
+                    <p><?= VehicleModel::unitCount() ?> vehicles across <?= count($vehicles) ?> models. Open one to see more photos, pick your locations, and hire it on WhatsApp.</p>
                 </div>
             </div>
 
@@ -86,8 +86,19 @@
                     <p>Whichever way you'd rather travel, we've got a way to get you there.</p>
                 </div>
             </div>
-            <div class="service-grid">
-                <?php foreach ($services as $s): require __DIR__ . '/partials/service-card.php'; endforeach; ?>
+            <div class="tcar reveal" role="region" data-carousel data-autoplay="5000" aria-roledescription="carousel" aria-label="Our services">
+                <div class="tcar-viewport" tabindex="0">
+                    <div class="tcar-track" style="--per-lg: 5; --per-md: 3; --per-sm: 2; --gap: 18px;">
+                        <?php foreach ($services as $s): ?>
+                            <div class="tcar-item"><?php require __DIR__ . '/partials/service-card.php'; ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="tcar-nav">
+                    <button type="button" class="tcar-arrow" data-dir="prev" aria-label="Previous services">&#8249;</button>
+                    <div class="tcar-dots"></div>
+                    <button type="button" class="tcar-arrow" data-dir="next" aria-label="Next services">&#8250;</button>
+                </div>
             </div>
         </div>
     </section>
@@ -132,23 +143,38 @@
     </section>
 
     <!-- ============================== REVIEWS ============================== -->
-    <!-- PLACEHOLDER reviews — see ContentModel::reviews(). Replace with real ones. -->
+    <!-- REAL customer feedback — see ContentModel::reviews(). -->
     <section class="section section-alt" id="reviews">
         <div class="container">
             <div class="section-head reveal">
                 <div>
                     <h2>What travelers say</h2>
-                    <p class="placeholder-note">Sample reviews shown while we collect real ones — not actual customers yet.</p>
+                    <p>Real messages from real hires — straight from our WhatsApp chats and Facebook page.</p>
                 </div>
                 <div class="rating-summary">
-                    <span class="rating-number"><?= $reviewSummary['rating'] ?></span>
-                    <div class="review-stars">
-                        <?php for ($i = 0; $i < 5; $i++): ?><span class="is-filled"><?= icon_svg('star') ?></span><?php endfor; ?>
+                    <span class="rating-number"><?= number_format($reviewSummary['rating'], 1) ?></span>
+                    <div class="rating-meta">
+                        <div class="review-stars" role="img" aria-label="<?= $reviewSummary['rating'] ?> out of 5">
+                            <?php for ($i = 0; $i < 5; $i++): ?><span class="is-filled" aria-hidden="true"><?= icon_svg('star') ?></span><?php endfor; ?>
+                        </div>
+                        <span class="rating-count">from <?= (int) $reviewSummary['count'] ?> customer messages</span>
                     </div>
                 </div>
             </div>
-            <div class="review-grid">
-                <?php foreach ($reviews as $rv): require __DIR__ . '/partials/review-card.php'; endforeach; ?>
+
+            <div class="tcar reveal" role="region" data-carousel data-autoplay="7000" aria-roledescription="carousel" aria-label="Customer reviews">
+                <div class="tcar-viewport" tabindex="0">
+                    <div class="tcar-track" style="--per-lg: 3; --per-md: 2; --per-sm: 1; --gap: 20px;">
+                        <?php foreach ($reviews as $rv): ?>
+                            <div class="tcar-item"><?php require __DIR__ . '/partials/review-card.php'; ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="tcar-nav">
+                    <button type="button" class="tcar-arrow" data-dir="prev" aria-label="Previous reviews">&#8249;</button>
+                    <div class="tcar-dots"></div>
+                    <button type="button" class="tcar-arrow" data-dir="next" aria-label="Next reviews">&#8250;</button>
+                </div>
             </div>
         </div>
     </section>

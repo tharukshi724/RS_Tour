@@ -171,3 +171,140 @@
         });
     }
 })();
+
+
+/* =========================================================================
+   Carousel — drives every [data-carousel] on the page (services, reviews).
+   The track is a CSS scroll-snap strip, so swipe and trackpad scrolling
+   already work without this file; what follows adds arrows, page dots,
+   autoplay and keyboard support, and keeps all three in sync with whatever
+   the user does by hand.
+   ========================================================================= */
+(function () {
+    var carousels = Array.prototype.slice.call(document.querySelectorAll('[data-carousel]'));
+    if (!carousels.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    carousels.forEach(function (root) {
+        var viewport = root.querySelector('.tcar-viewport');
+        var dotsWrap = root.querySelector('.tcar-dots');
+        var prevBtn = root.querySelector('[data-dir="prev"]');
+        var nextBtn = root.querySelector('[data-dir="next"]');
+        if (!viewport) return;
+
+        var pages = 1;
+        var page = 0;
+        var timer = null;
+        var paused = false;
+        var autoplayMs = parseInt(root.getAttribute('data-autoplay') || '0', 10);
+
+        function pageWidth() { return viewport.clientWidth; }
+
+        function countPages() {
+            var w = pageWidth();
+            if (!w) return 1;
+            // 2px slack so sub-pixel widths don't invent a phantom last page
+            return Math.max(1, Math.ceil((viewport.scrollWidth - 2) / w));
+        }
+
+        function goTo(index, instant) {
+            page = Math.max(0, Math.min(index, pages - 1));
+            viewport.scrollTo({
+                left: page * pageWidth(),
+                behavior: (instant || reduceMotion) ? 'auto' : 'smooth'
+            });
+            paint();
+        }
+
+        function paint() {
+            if (prevBtn) prevBtn.disabled = page <= 0;
+            if (nextBtn) nextBtn.disabled = page >= pages - 1;
+            if (!dotsWrap) return;
+            Array.prototype.forEach.call(dotsWrap.children, function (dot, i) {
+                var active = i === page;
+                dot.classList.toggle('is-active', active);
+                dot.setAttribute('aria-current', active ? 'true' : 'false');
+            });
+        }
+
+        function buildDots() {
+            if (!dotsWrap) return;
+            dotsWrap.innerHTML = '';
+            for (var i = 0; i < pages; i++) {
+                var dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'tcar-dot';
+                dot.setAttribute('aria-label', 'Go to page ' + (i + 1) + ' of ' + pages);
+                (function (index) {
+                    dot.addEventListener('click', function () { stop(); goTo(index); start(); });
+                })(i);
+                dotsWrap.appendChild(dot);
+            }
+        }
+
+        function measure() {
+            var next = countPages();
+            if (next !== pages) {
+                pages = next;
+                buildDots();
+            }
+            root.classList.toggle('is-static', pages <= 1);
+            page = Math.min(page, pages - 1);
+            paint();
+        }
+
+        // Keep state honest when the user swipes or trackpad-scrolls by hand
+        var scrollTick = null;
+        viewport.addEventListener('scroll', function () {
+            if (scrollTick) return;
+            scrollTick = window.requestAnimationFrame(function () {
+                scrollTick = null;
+                var w = pageWidth();
+                if (w) page = Math.round(viewport.scrollLeft / w);
+                paint();
+            });
+        }, { passive: true });
+
+        if (prevBtn) prevBtn.addEventListener('click', function () { stop(); goTo(page - 1); start(); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { stop(); goTo(page + 1); start(); });
+
+        viewport.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') { e.preventDefault(); stop(); goTo(page + 1); start(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); stop(); goTo(page - 1); start(); }
+        });
+
+        function tick() {
+            if (paused || pages <= 1 || document.hidden) return;
+            goTo(page >= pages - 1 ? 0 : page + 1);
+        }
+
+        function start() {
+            if (!autoplayMs || reduceMotion) return;
+            stop();
+            timer = window.setInterval(tick, autoplayMs);
+        }
+        function stop() {
+            if (timer) { window.clearInterval(timer); timer = null; }
+        }
+
+        ['mouseenter', 'focusin', 'touchstart', 'pointerdown'].forEach(function (evt) {
+            root.addEventListener(evt, function () { paused = true; }, { passive: true });
+        });
+        ['mouseleave', 'focusout'].forEach(function (evt) {
+            root.addEventListener(evt, function () { paused = false; }, { passive: true });
+        });
+        root.addEventListener('touchend', function () {
+            window.setTimeout(function () { paused = false; }, 4000);
+        }, { passive: true });
+
+        var resizeTick = null;
+        window.addEventListener('resize', function () {
+            window.clearTimeout(resizeTick);
+            resizeTick = window.setTimeout(function () { measure(); goTo(page, true); }, 150);
+        });
+
+        measure();
+        start();
+    });
+})();

@@ -26,6 +26,10 @@ function dispatch(): void
             PackageController::show($slug);
             break;
 
+        case 'book':
+            BookingController::show();
+            break;
+
         case 'home':
         default:
             HomeController::index();

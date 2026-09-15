@@ -168,7 +168,7 @@ class ContentModel
     public static function stats(): array
     {
         return [
-            ['value' => count(VehicleModel::all()) . '+', 'label' => 'vehicles listed'],
+            ['value' => (string) VehicleModel::unitCount(), 'label' => 'vehicles in our fleet'],
             ['value' => '24/7', 'label' => 'WhatsApp support'],
             ['value' => '<10 min', 'label' => 'average reply time'],
         ];
@@ -202,20 +202,104 @@ class ContentModel
         ];
     }
 
-    // PLACEHOLDER — generic sample reviews, not real customers.
+    // Customer reviews now live in data/reviews.json, added and removed at
+    // runtime through public/api/reviews.php - see ReviewStore. Nothing here
+    // needs editing to publish new feedback.
     public static function reviews(): array
     {
+        return ReviewStore::published();
+    }
+
+    // The content data/reviews.json is seeded with: real customer feedback,
+    // each one transcribed from an actual WhatsApp chat or Facebook comment
+    // (screenshots kept by the business). Sinhala entries keep the customer's
+    // own wording in 'text' and carry an English rendering in 'text_en'.
+    // Used only as a fallback if the JSON file is missing or unreadable.
+    public static function seedReviews(): array
+    {
         return [
-            ['name' => 'Kasun P.', 'rating' => 5, 'text' => 'Smooth pickup, vehicle was clean and exactly as pictured. Would rent again.'],
-            ['name' => 'Amara S.', 'rating' => 5, 'text' => 'Booked a self-drive for a Kandy trip — easy WhatsApp process, no surprises on price.'],
-            ['name' => 'Nimal F.', 'rating' => 4, 'text' => 'Chauffeur was on time and knew the routes well. Good value for a day tour.'],
+            [
+                'name'    => 'Kaushalya Wickramasinghe',
+                'trip'    => 'Airport hire',
+                'source'  => 'whatsapp',
+                'rating'  => 5,
+                'lang'    => 'en',
+                'text'    => 'Thank you so much for the airport hire your company arranged for us with Mr. Sangeeth. Excellent timing, safe driving and great customer service. I highly recommend RS Tours for any sort of vehicle hiring needs.',
+            ],
+            [
+                'name'    => 'Thushara Aththanayake',
+                'trip'    => 'Wedding hire, Gampola',
+                'source'  => 'whatsapp',
+                'rating'  => 5,
+                'lang'    => 'si',
+                'text'    => 'ඇත්තටම මගේ වෙඩිං එකට මම කාර් එකක් ගත්තා. වෙඩිං එකේ වැඩ සේරම කරගෙන නුවර එළියෙත් ගිහින් දවස් 02ක් ඉඳලා ආවා. වාහනය ගත්ත දවස් 04ට මට ගියේ තෙල් වියදමත් එක්ක 18000ක් වගේ සුළු මුදලක්.',
+                'text_en' => 'I hired a car for my wedding. We got everything done, then drove up to Nuwara Eliya and stayed two days. For the four days I had the vehicle it cost me only about Rs. 18,000 - fuel included.',
+            ],
+            [
+                'name'    => 'Nalin Senevirathna',
+                'trip'    => 'Wedding hire',
+                'source'  => 'whatsapp',
+                'rating'  => 5,
+                'lang'    => 'si',
+                'text'    => 'කාර් එකත් සුපිරි, කිසි අවුලක් නැහැ. බය නැතුව යන්න පුළුවන්. මේ සමාගමට දිනෙන් දින හරියන්න ඕනි.',
+                'text_en' => 'The car was superb - not a single problem, you can travel without a worry. This company deserves to grow bigger by the day.',
+            ],
+            [
+                'name'    => 'Boyagama Vidyalaya staff',
+                'trip'    => 'School trip, Kumbalwela',
+                'source'  => 'whatsapp',
+                'rating'  => 5,
+                'lang'    => 'si',
+                'text'    => '2025.08.12 දින කුඹල්වෙල චාරිකාවේ, රියදුරු ලෙස තම වගකීම මැනවින් ඉටු කල අජිත් මහතාට, පේරාදෙණිය බෝයගම විද්‍යාලයීය කාර්ය මණ්ඩලයේ හද පිරි ප්‍රණාමය පුදමි.',
+                'text_en' => 'Our heartfelt thanks to Mr. Ajith, who carried out his duty as driver so well on the Kumbalwela trip of 12 Aug 2025 - from the staff of Boyagama Vidyalaya, Peradeniya.',
+            ],
+            [
+                'name'    => 'Auto Kleen, Mawanella',
+                'trip'    => 'Family trip, Galle & Matara',
+                'source'  => 'whatsapp',
+                'rating'  => 5,
+                'lang'    => 'en',
+                'text'    => 'Great, thank you. Will get back for future travels. Good driver for a family trip.',
+            ],
+            [
+                'name'    => 'GKUC',
+                'trip'    => 'Staff bus hire',
+                'source'  => 'whatsapp',
+                'rating'  => 5,
+                'lang'    => 'en',
+                'text'    => 'Your bus is superb. We\'ll give you all our hires from now on - our team is fully satisfied.',
+            ],
+            [
+                'name'    => 'Sunee Gunasinghe',
+                'trip'    => 'Group tour',
+                'source'  => 'facebook',
+                'rating'  => 5,
+                'lang'    => 'en',
+                'text'    => 'This is the best transport service for your tours.',
+            ],
+            [
+                'name'    => 'Sadali Randika',
+                'trip'    => 'Bus tour',
+                'source'  => 'facebook',
+                'rating'  => 5,
+                'lang'    => 'si',
+                'text'    => 'ඊළඟ පාරත් SENU ANGEL තමයි.',
+                'text_en' => 'Next trip too, it is Senu Angel for us.',
+            ],
         ];
     }
 
-    // PLACEHOLDER — replace with your real aggregate rating once you have reviews.
+    // Aggregate for the section header — derived from the real reviews above,
+    // so it can never drift out of sync with them.
     public static function reviewSummary(): array
     {
-        return ['rating' => 4.8, 'count' => 0];
+        $reviews = self::reviews();
+        $count = count($reviews);
+        if ($count === 0) {
+            return ['rating' => 0.0, 'count' => 0];
+        }
+        $sum = array_sum(array_column($reviews, 'rating'));
+        return ['rating' => round($sum / $count, 1), 'count' => $count];
     }
 
     // PLACEHOLDER — generic starter topics, not published articles yet.

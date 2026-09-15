@@ -19,4 +19,10 @@ define('CONTACT_LOCATION', 'Mawanella, 71500, Sri Lanka');
 define('SITE_URL', 'https://example.com'); // TODO: your real domain — used in SEO tags, sitemap, structured data
 define('VIDEO_EMBED_URL', ''); // TODO: e.g. 'https://www.youtube.com/embed/XXXXXXXXXXX' — leave blank to show the placeholder
 
-define('ASSET_VERSION', '11');
+// Key for public/api/reviews.php. Anything that CHANGES reviews (adding,
+// hiding, deleting) must send it as an X-Api-Key header; reading is open.
+// TODO: replace with your own long random string before going live, and never
+// commit the real one to a public repo.
+define('REVIEWS_API_KEY', 'change-me-to-a-long-random-string');
+
+define('ASSET_VERSION', '22');

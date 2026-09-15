@@ -23,6 +23,7 @@
     --cat-car: #ea6a34;
     --cat-suv: #103b3e;
     --cat-van: #d1531f;
+    --cat-bus: #1c5a5e;
     --cat-bike: #f0a479;
     --cat-luxury: #1c5a5e;
 
@@ -476,13 +477,14 @@ body.has-hero .navbar:not(.is-scrolled) .nav-toggle span { background: #fff; }
     white-space: nowrap;
 }
 .vcard-blurb { color: var(--muted); font-size: 14px; margin: 0; flex: 1; line-height: 1.45; }
-.vcard-specs { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 12.5px; }
-.spec-icon { display: inline-flex; align-items: center; gap: 5px; }
-.spec-icon svg { color: var(--gold-text); }
+.vcard-specs { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 12.5px; flex-wrap: wrap; row-gap: 4px; }
+.spec-icon { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.spec-icon svg { color: var(--gold-text); flex-shrink: 0; }
 .vcard-foot {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
     margin-top: 8px;
     padding-top: 12px;
     border-top: 1px solid var(--asphalt-700);
@@ -490,11 +492,17 @@ body.has-hero .navbar:not(.is-scrolled) .nav-toggle span { background: #fff; }
 .vcard-price { font-family: var(--font-display); font-size: 20px; color: var(--paper); }
 .vcard-price small { font-family: var(--font-body); font-size: 12px; color: var(--muted); font-weight: 400; }
 .vcard-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
     font-size: 13.5px;
     font-weight: 600;
     color: var(--paper);
     transition: color 0.15s ease, transform 0.15s ease;
 }
+.vcard-link svg { flex-shrink: 0; }
 .vcard:hover .vcard-link { color: var(--gold-text); transform: translateX(2px); }
 
 /* How it works */
@@ -867,7 +875,7 @@ a.footer-contact-row:hover { color: var(--gold-text); }
     align-items: center;
     justify-content: center;
 }
-#leafletMap { flex: 1; min-height: 300px; margin: 14px 20px; border-radius: 10px; isolation: isolate; }
+#bookingLeafletMap { flex: 1; min-height: 300px; margin: 14px 20px; border-radius: 10px; isolation: isolate; }
 .use-current-btn {
     display: flex;
     align-items: center;
@@ -897,8 +905,236 @@ a.footer-contact-row:hover { color: var(--gold-text); }
 .map-picked-address { font-size: 13px; color: var(--muted); flex: 1; }
 .map-picked-address b { color: var(--paper); font-weight: 600; display: block; font-size: 13.5px; margin-bottom: 2px; }
 
+/* "Book this vehicle" call-to-action on the detail page — links through to
+   the dedicated /book page (query-string carries the vehicle info). */
+.trip-panel .booking-cta { width: 100%; margin-top: 4px; }
+.trip-panel .trip-hint { margin-top: 10px; }
+
+body.modal-open { overflow: hidden; }
+
+/* ==========================================================================
+   Book page — a dedicated page (not a modal) so the location-picker map
+   modal never has to stack on top of another modal. Reached from both hero
+   buttons and the vehicle detail page's "Book this vehicle" button.
+   ========================================================================== */
+.book-hero {
+    position: relative;
+    padding: 128px 0 64px;
+    overflow: hidden;
+    color: var(--ink);
+}
+.book-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.book-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.book-hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(100deg, rgba(10,16,15,0.9) 0%, rgba(10,16,15,0.78) 45%, rgba(10,16,15,0.5) 75%, rgba(10,16,15,0.35) 100%),
+        linear-gradient(180deg, rgba(10,16,15,0.2), rgba(10,16,15,0.6) 92%);
+}
+.book-hero-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.book-breadcrumb {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: rgba(255,253,243,0.75);
+    font-size: 13px;
+    margin-bottom: 28px;
+}
+.book-breadcrumb:hover { color: var(--ink); }
+.book-hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    color: var(--headlight);
+    background: rgba(234,106,52,0.14);
+    border: 1px solid rgba(234,106,52,0.35);
+    border-radius: 999px;
+    padding: 7px 16px 7px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+.book-hero h1 { color: var(--ink); font-size: 38px; margin: 0 0 10px; }
+.book-hero p { color: rgba(255,253,243,0.75); font-size: 15.5px; max-width: 480px; margin: 0; }
+.book-vehicle-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 22px;
+    background: rgba(255,253,243,0.1);
+    border: 1px solid rgba(255,253,243,0.25);
+    border-radius: 999px;
+    padding: 8px 16px 8px 8px;
+    font-size: 13.5px;
+}
+.book-vehicle-chip .chip-icon {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--headlight);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+}
+.book-vehicle-chip b { font-weight: 700; }
+.book-vehicle-chip span { color: rgba(255,253,243,0.65); }
+
+.book-wrap { padding: 56px 0 90px; }
+.book-card {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+    background:
+        radial-gradient(560px 260px at 100% 0%, rgba(234,106,52,0.07), transparent 65%),
+        radial-gradient(420px 220px at 0% 100%, rgba(16,59,62,0.06), transparent 65%),
+        var(--asphalt-800);
+    border: 1px solid var(--asphalt-700);
+    border-radius: 20px;
+    padding: 40px 44px 36px;
+    box-shadow: 0 30px 70px rgba(16,59,62,0.12);
+    overflow: hidden;
+    isolation: isolate;
+}
+/* A large, near-invisible brand watermark in the corner — adds a bit of
+   character without ever competing with the form fields for contrast. */
+.book-card::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23103b3e' stroke-width='1' %3E%3Cpath d='M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11'/%3E%3Crect x='3' y='11' width='18' height='6' rx='2'/%3E%3Ccircle cx='7.5' cy='17.5' r='1.5'/%3E%3Ccircle cx='16.5' cy='17.5' r='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+}
+.book-card > * { position: relative; z-index: 1; }
+.book-card-head { margin-bottom: 28px; padding-bottom: 22px; border-bottom: 1px solid var(--asphalt-700); }
+.book-card-head h2 { font-size: 22px; margin-bottom: 5px; }
+.book-card-head p { color: var(--muted); font-size: 13.5px; margin: 0; }
+
+.booking-form { display: flex; flex-direction: column; }
+
+/* Fields are grouped into short, clearly labelled sections — Contact,
+   Route, Trip details, Notes — instead of one long undifferentiated list. */
+.booking-group { padding: 20px 0; border-bottom: 1px solid var(--asphalt-700); }
+.booking-group:first-child { padding-top: 0; }
+.booking-group-last { border-bottom: none; padding-bottom: 4px; }
+.booking-group-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin: 0 0 14px;
+}
+.booking-group-label .eyebrow-dash { background: var(--gold-text); }
+
+.booking-field { display: flex; flex-direction: column; gap: 6px; }
+.booking-field-row { display: flex; gap: 12px; }
+.booking-field-row .booking-field { flex: 1; min-width: 0; }
+.booking-field-row .location-btn { flex: 1; }
+.booking-field-row + .booking-field-row,
+.booking-group .booking-field + .booking-field { margin-top: 12px; }
+.booking-optional { text-transform: none; font-weight: 500; color: var(--muted); font-size: 11px; }
+
+.booking-field label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 600;
+    color: var(--muted);
+    text-transform: none;
+}
+.booking-field label svg { color: var(--gold-text); flex-shrink: 0; }
+
+.booking-field input,
+.booking-field select,
+.booking-field textarea {
+    background: var(--asphalt-900);
+    border: 1px solid var(--asphalt-700);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--paper);
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.booking-field textarea { resize: vertical; min-height: 64px; }
+.booking-field input::placeholder,
+.booking-field textarea::placeholder { color: var(--muted); }
+.booking-field input:focus,
+.booking-field select:focus,
+.booking-field textarea:focus { outline: none; border-color: var(--headlight); box-shadow: 0 0 0 3px rgba(234,106,52,0.12); }
+.booking-field select { appearance: none; cursor: pointer; }
+
+.booking-field-hint {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+.booking-field-hint.is-error { color: var(--danger); }
+
+.booking-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+.booking-actions .btn { width: 100%; justify-content: center; }
+.booking-form-foot {
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .book-hero { padding: 104px 0 48px; }
+    .book-hero h1 { font-size: 27px; }
+    .book-wrap { padding-top: 28px; }
+    .book-card { padding: 26px 20px; border-radius: 16px; }
+    .booking-field-row { flex-direction: column; gap: 12px; }
+    .booking-field-row + .booking-field-row { margin-top: 0; }
+    .booking-group .booking-field + .booking-field { margin-top: 0; }
+}
+
+/* ==========================================================================
+   Confirmation popup — shown after "Submit" on the book page. A single
+   lightweight modal (never stacked with the map modal) that hands the
+   customer off with a clear expectation, then returns them home.
+   ========================================================================== */
+.confirm-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 14, 13, 0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+    padding: 20px;
+}
+.confirm-modal.is-open { display: flex; }
+.confirm-modal-box {
+    background: var(--asphalt-800);
+    border: 1px solid var(--asphalt-700);
+    border-radius: 16px;
+    max-width: 380px;
+    width: 100%;
+    padding: 30px 26px 26px;
+    text-align: center;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+    animation: booking-pop 0.22s ease;
+}
+@keyframes booking-pop {
+    from { transform: translateY(10px) scale(0.98); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.confirm-modal-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--go) 20%, transparent);
+    color: var(--go);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+}
+.confirm-modal-box h3 { font-size: 19px; margin-bottom: 8px; }
+.confirm-modal-box p { color: var(--muted); font-size: 13.5px; margin: 0 0 22px; }
+.confirm-modal-box .btn { width: 100%; justify-content: center; }
+
 /* ==========================================================================
    Small-screen refinements (phones)
+
    ========================================================================== */
 @media (max-width: 640px) {
     .hero-inner { padding: 110px 20px 0; }
@@ -928,7 +1164,7 @@ a.footer-contact-row:hover { color: var(--gold-text); }
     .map-modal-box { max-width: 100%; max-height: 92vh; border-radius: 14px 14px 0 0; }
     .map-search-row { flex-direction: column; }
     .map-search-row button { padding: 10px 16px; }
-    #leafletMap { min-height: 280px; }
+    #bookingLeafletMap { min-height: 280px; }
     .map-modal-foot { flex-direction: column; align-items: stretch; }
     .map-modal-foot .btn { width: 100%; }
 
@@ -1420,3 +1656,196 @@ a.footer-contact-row:hover { color: var(--gold-text); }
 .guide-body h3 { font-size: 16.5px; margin-bottom: 8px; line-height: 1.35; }
 .guide-body p { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; line-height: 1.5; }
 .guide-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--gold-text); }
+
+
+/* ==========================================================================
+   Carousel — one shared component, used by the services strip and the
+   reviews strip. Cards per view are set per-instance with --per-lg /
+   --per-md / --per-sm inline on .tcar-track, so the same CSS serves both.
+   It is a scroll-snap track first: it works with no JS at all (swipe /
+   trackpad), and main.js only adds arrows, dots and autoplay on top.
+   ========================================================================== */
+.tcar { position: relative; }
+.tcar-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* room for the cards' hover lift + shadow, cancelled by the margin;
+       vertical only, since overflow-y is what would clip it */
+    padding: 6px 0 12px;
+    margin: -6px 0 -12px;
+    overscroll-behavior-x: contain;
+}
+.tcar-viewport::-webkit-scrollbar { display: none; }
+.tcar-viewport:focus-visible { outline: 2px solid var(--headlight); outline-offset: 2px; border-radius: 16px; }
+.tcar-track {
+    display: flex;
+    align-items: stretch;
+    gap: var(--gap, 20px);
+    --per: var(--per-lg, 3);
+}
+.tcar-item {
+    flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap, 20px)) / var(--per));
+    scroll-snap-align: start;
+    display: flex;
+}
+.tcar-item > * { width: 100%; }
+@media (max-width: 1000px) { .tcar-track { --per: var(--per-md, 2); } }
+@media (max-width: 640px)  { .tcar-track { --per: var(--per-sm, 1); } }
+
+.tcar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+.tcar.is-static .tcar-nav { display: none; }
+.tcar-arrow {
+    width: 42px; height: 42px;
+    flex: none;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--asphalt-700);
+    border-radius: 50%;
+    background: var(--asphalt-900);
+    color: var(--paper);
+    font-size: 22px;
+    line-height: 1;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+.tcar-arrow:hover:not(:disabled) {
+    background: var(--headlight);
+    border-color: var(--headlight);
+    color: var(--ink);
+    transform: translateY(-1px);
+}
+.tcar-arrow:disabled { opacity: 0.35; cursor: default; }
+.tcar-dots { display: flex; align-items: center; gap: 7px; }
+.tcar-dot {
+    width: 8px; height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--asphalt-600);
+    transition: width 0.2s ease, background 0.2s ease;
+}
+.tcar-dot:hover { background: var(--muted); }
+.tcar-dot.is-active { background: var(--headlight); width: 24px; border-radius: 5px; }
+
+/* Service cards sit in a carousel now — equal height across the row */
+.service-card { height: 100%; }
+
+/* ==========================================================================
+   Review card — real customer messages (WhatsApp / Facebook)
+   ========================================================================== */
+.review-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--asphalt-900);
+    border: 1px solid var(--asphalt-700);
+    border-radius: 18px;
+    padding: 26px 22px 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.review-card:hover { transform: translateY(-3px); box-shadow: 0 18px 34px rgba(16, 59, 62, 0.10); }
+.review-quote { position: absolute; top: 18px; right: 20px; color: var(--headlight); opacity: 0.16; pointer-events: none; }
+.review-card .review-stars { margin-bottom: 14px; }
+.review-text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--paper);
+    margin: 0 0 12px;
+    padding: 0;
+    border: 0;
+}
+.review-text.is-si {
+    font-family: "Noto Sans Sinhala", var(--font-body);
+    font-weight: 400;
+    font-size: 13.5px;
+    line-height: 1.95;
+}
+.review-text-en {
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 12px;
+    padding-left: 11px;
+    border-left: 2px solid var(--asphalt-700);
+}
+.review-foot {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--asphalt-700);
+}
+.review-avatar {
+    width: 36px; height: 36px;
+    flex: none;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: var(--brand-teal);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 14px;
+}
+.review-who { display: flex; flex-direction: column; min-width: 0; }
+.review-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--paper);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.review-trip { font-size: 12px; color: var(--muted); }
+.review-source {
+    margin-left: auto;
+    flex: none;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 9px;
+}
+.review-source--whatsapp { background: rgba(37, 211, 102, 0.12); color: var(--go); }
+.review-source--facebook { background: rgba(24, 119, 242, 0.12); color: #1877f2; }
+.review-source--google,
+.review-source--other { background: var(--asphalt-800); color: var(--gold-text); }
+.review-source svg { width: 15px; height: 15px; }
+
+.rating-summary { align-items: center; }
+.rating-meta { display: flex; flex-direction: column; gap: 2px; }
+.rating-count { font-size: 12.5px; color: var(--muted); }
+@media (max-width: 640px) {
+    .review-card { padding: 22px 18px 16px; }
+    .rating-summary { margin-top: 14px; }
+}
+
+
+/* ==========================================================================
+   Fleet cards — availability badge and the no-price-yet state
+   ========================================================================== */
+.vcard-units {
+    flex: none;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold-text);
+    background: color-mix(in srgb, var(--headlight) 12%, transparent);
+    border-radius: 999px;
+    padding: 3px 9px;
+    white-space: nowrap;
+}
+.vcard-price-overlay.is-ask {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+.detail-price.is-ask { font-size: 22px; }
