@@ -713,23 +713,29 @@ a.footer-contact-row:hover { color: var(--gold-text); }
     margin-bottom: 12px;
 }
 .location-btn {
-    flex: 1;
+    width: 100%;
     text-align: left;
     background: var(--asphalt-900);
     border: 1px solid var(--asphalt-700);
     border-radius: 10px;
-    padding: 12px 14px;
+    padding: 0 14px;
     color: var(--paper);
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    overflow: hidden;
     transition: border-color 0.15s ease;
 }
 .location-btn:hover { border-color: var(--headlight); }
 .location-btn.is-set { border-color: var(--go); }
-.location-label { font-size: 11px; color: var(--muted); text-transform: none; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-.location-label svg { color: var(--gold-text); }
-.location-value { font-size: 13.5px; line-height: 1.35; }
+.location-value {
+    font-size: 14px;
+    line-height: 1.35;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .location-value.is-placeholder { color: var(--muted); }
 
 /* Trip route preview — shown once both pickup and drop are set */
@@ -739,10 +745,7 @@ a.footer-contact-row:hover { color: var(--gold-text); }
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--asphalt-700);
-    /* Leaflet's internal panes use z-index values up to 700 for markers/
-       popups. Without isolating this box, those can visually escape and
-       paint above later elements on the page — like the location modal.
-       isolation:isolate traps all of that inside this box. */
+  
     isolation: isolate;
     position: relative;
     z-index: 0;
@@ -1029,39 +1032,56 @@ body.modal-open { overflow: hidden; }
 .booking-field { display: flex; flex-direction: column; gap: 6px; }
 .booking-field-row { display: flex; gap: 12px; }
 .booking-field-row .booking-field { flex: 1; min-width: 0; }
-.booking-field-row .location-btn { flex: 1; }
 .booking-field-row + .booking-field-row,
-.booking-group .booking-field + .booking-field { margin-top: 12px; }
+.booking-group > .booking-field + .booking-field { margin-top: 12px; }
 .booking-optional { text-transform: none; font-weight: 500; color: var(--muted); font-size: 11px; }
 
 .booking-field label {
     display: flex; align-items: center; gap: 6px;
+    line-height: 18px;
     font-size: 11.5px; font-weight: 600;
     color: var(--muted);
     text-transform: none;
 }
-.booking-field label svg { color: var(--gold-text); flex-shrink: 0; }
+.booking-field label svg {
+    color: var(--gold-text);
+    flex-shrink: 0;
+    width: 15px;
+    height: 15px;
+}
 
 .booking-field input,
 .booking-field select,
-.booking-field textarea {
+.booking-field textarea,
+.booking-field .location-btn {
     background: var(--asphalt-900);
     border: 1px solid var(--asphalt-700);
     border-radius: 10px;
-    padding: 12px 14px;
+    padding: 0 14px;
     color: var(--paper);
     font-size: 14px;
     font-family: inherit;
     width: 100%;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.booking-field textarea { resize: vertical; min-height: 64px; }
+.booking-field input,
+.booking-field select,
+.booking-field .location-btn {
+    height: 44px;
+    line-height: normal;
+}
+.booking-field textarea { resize: vertical; min-height: 64px; padding: 12px 14px; line-height: 1.5; }
 .booking-field input::placeholder,
 .booking-field textarea::placeholder { color: var(--muted); }
 .booking-field input:focus,
 .booking-field select:focus,
-.booking-field textarea:focus { outline: none; border-color: var(--headlight); box-shadow: 0 0 0 3px rgba(234,106,52,0.12); }
+.booking-field textarea:focus,
+.booking-field .location-btn:focus-visible { outline: none; border-color: var(--headlight); box-shadow: 0 0 0 3px rgba(234,106,52,0.12); }
 .booking-field select { appearance: none; cursor: pointer; }
+/* Strip the intrinsic padding Chrome gives the time field's spin/clock UI
+   so its text sits on the same line as every other control's. */
+.booking-field input[type="time"]::-webkit-calendar-picker-indicator { margin-left: auto; }
+.booking-field input[type="time"]::-webkit-datetime-edit { padding: 0; }
 
 .booking-field-hint {
     margin: 10px 0 0;
@@ -1086,7 +1106,7 @@ body.modal-open { overflow: hidden; }
     .book-card { padding: 26px 20px; border-radius: 16px; }
     .booking-field-row { flex-direction: column; gap: 12px; }
     .booking-field-row + .booking-field-row { margin-top: 0; }
-    .booking-group .booking-field + .booking-field { margin-top: 0; }
+    .booking-group > .booking-field + .booking-field { margin-top: 0; }
 }
 
 /* ==========================================================================

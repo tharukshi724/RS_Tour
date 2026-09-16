@@ -109,7 +109,7 @@
         <div class="container">
             <div class="section-head reveal">
                 <div>
-                    <h2>Our Packages</h2>
+                    <h2>Our packages</h2>
                     <p>Fixed-price packages for airport transfers, events, and weddings — open one to see every option and price.</p>
                 </div>
             </div>

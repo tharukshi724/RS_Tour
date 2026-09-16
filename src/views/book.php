@@ -67,14 +67,18 @@
                 <div class="booking-group">
                     <p class="booking-group-label"><span class="eyebrow-dash"></span> Route</p>
                     <div class="booking-field-row">
-                        <button type="button" class="location-btn" id="bookPickupBtn">
-                            <span class="location-label"><?= icon_svg('pin') ?> Pick up Location</span>
-                            <span class="location-value is-placeholder" id="bookPickupValue">Set pickup location</span>
-                        </button>
-                        <button type="button" class="location-btn" id="bookDropBtn">
-                            <span class="location-label"><?= icon_svg('pin') ?> Drop Off Location</span>
-                            <span class="location-value is-placeholder" id="bookDropValue">Set drop off location</span>
-                        </button>
+                        <div class="booking-field">
+                            <label for="bookPickupBtn"><?= icon_svg('pin') ?> Pick up Location</label>
+                            <button type="button" class="location-btn" id="bookPickupBtn">
+                                <span class="location-value is-placeholder" id="bookPickupValue">Set pickup location</span>
+                            </button>
+                        </div>
+                        <div class="booking-field">
+                            <label for="bookDropBtn"><?= icon_svg('pin') ?> Drop Off Location</label>
+                            <button type="button" class="location-btn" id="bookDropBtn">
+                                <span class="location-value is-placeholder" id="bookDropValue">Set drop off location</span>
+                            </button>
+                        </div>
                     </div>
                     <p class="booking-field-hint" id="bookingLocationHint">Tap a location field above to pick it on the map.</p>
                 </div>
