@@ -9,6 +9,7 @@ require_once __DIR__ . '/helpers.php';
 
 require_once __DIR__ . '/../models/VehicleModel.php';
 require_once __DIR__ . '/../models/ReviewStore.php';
+require_once __DIR__ . '/../models/FeedbackStore.php';
 require_once __DIR__ . '/../models/ContentModel.php';
 
 require_once __DIR__ . '/../controllers/HomeController.php';

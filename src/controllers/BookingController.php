@@ -14,7 +14,7 @@ class BookingController
         // CTAs at once.
         $mode = ($_GET['mode'] ?? '') === 'whatsapp' ? 'whatsapp' : 'online';
 
-        $vehicleTypes = ['Van', 'Car', 'Bus', 'Bike', 'Three Wheeler'];
+        $vehicleTypes = ['Bike', 'Three Wheeler', 'Car', 'Van', 'Bus'];
         $matchedType = '';
         foreach ($vehicleTypes as $t) {
             if (strcasecmp($t, $vehicleCategory) === 0) { $matchedType = $t; break; }

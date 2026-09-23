@@ -99,9 +99,19 @@
                             <label for="bookPassengers"><?= icon_svg('seat') ?> Passengers</label>
                             <input type="number" id="bookPassengers" name="passengers" min="1" max="60" placeholder="e.g. 2" required>
                         </div>
+                    </div>
+                </div>
+
+                <div class="booking-group">
+                    <p class="booking-group-label"><span class="eyebrow-dash"></span> Trip Date &amp; Time</p>
+                    <div class="booking-field-row">
                         <div class="booking-field">
-                            <label for="bookPickupTime"><?= icon_svg('clock') ?> Pickup Time</label>
-                            <input type="time" id="bookPickupTime" name="pickupTime" required>
+                            <label for="bookTripDate"><?= icon_svg('clock') ?> Trip Date</label>
+                            <input type="date" id="bookTripDate" name="tripDate" required>
+                        </div>
+                        <div class="booking-field">
+                            <label for="bookTripTime"><?= icon_svg('clock') ?> Trip Time</label>
+                            <input type="time" id="bookTripTime" name="tripTime" required>
                         </div>
                     </div>
                 </div>

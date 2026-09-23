@@ -26,8 +26,18 @@
     var pendingPoint = null;
     var userActed = false;
 
-    var pickupTimeInput = document.getElementById('bookPickupTime');
-    if (pickupTimeInput && !pickupTimeInput.value) pickupTimeInput.value = '09:00';
+    var tripTimeInput = document.getElementById('bookTripTime');
+    if (tripTimeInput && !tripTimeInput.value) tripTimeInput.value = '09:00';
+
+    var tripDateInput = document.getElementById('bookTripDate');
+    if (tripDateInput && !tripDateInput.value) {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var dd = String(today.getDate()).padStart(2, '0');
+        tripDateInput.min = yyyy + '-' + mm + '-' + dd;
+        tripDateInput.value = yyyy + '-' + mm + '-' + dd;
+    }
 
     function openMapModal(field) {
         activeField = field;
@@ -70,10 +80,14 @@
         if (marker) marker.remove();
         marker = L.marker([lat, lng]).addTo(map);
         pendingPoint = { lat: lat, lng: lng, label: knownLabel || null };
-        confirmBtn.disabled = false;
+
+        // Keep Confirm disabled until we actually have an address for this
+        // point — it's only re-enabled once a label is available below.
+        confirmBtn.disabled = true;
 
         if (knownLabel) {
             pickedText.textContent = knownLabel;
+            confirmBtn.disabled = false;
             return;
         }
         if (reverseGeocode) {
@@ -84,11 +98,13 @@
                     var label = (data && data.display_name) ? data.display_name : (lat.toFixed(5) + ', ' + lng.toFixed(5));
                     pendingPoint.label = label;
                     pickedText.textContent = label;
+                    confirmBtn.disabled = false;
                 })
                 .catch(function () {
                     var label = lat.toFixed(5) + ', ' + lng.toFixed(5);
                     pendingPoint.label = label;
                     pickedText.textContent = label;
+                    confirmBtn.disabled = false;
                 });
         }
     }
@@ -321,7 +337,8 @@
             lines.push('Phone: ' + f.phone.value.trim());
             lines.push('Vehicle Type: ' + f.vehicleType.value);
             lines.push('Passengers: ' + f.passengers.value);
-            lines.push('Pickup Time: ' + f.pickupTime.value);
+            lines.push('Trip Date: ' + f.tripDate.value);
+            lines.push('Trip Time: ' + f.tripTime.value);
             lines.push('Pickup: ' + trip.pickup.label);
             lines.push('Drop: ' + trip.drop.label);
             if (f.note.value.trim()) lines.push('Additional info: ' + f.note.value.trim());

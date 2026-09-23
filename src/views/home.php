@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<?= htmlspecialchars(public_asset_url('css/style.css?v=' . ASSET_VERSION)) ?>">
 </head>
-<body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>">
+<body class="has-hero" data-whatsapp="<?= htmlspecialchars(WHATSAPP_NUMBER) ?>" data-sitename="<?= htmlspecialchars(SITE_NAME) ?>" data-feedback-api="<?= htmlspecialchars(public_asset_url('api/feedback.php')) ?>">
 
 <?php require __DIR__ . '/partials/header.php'; ?>
 
@@ -179,6 +179,22 @@
         </div>
     </section>
 
+    <!-- ============================== FEEDBACK ============================== -->
+    <section class="section feedback-section" id="feedback">
+        <div class="container">
+            <div class="feedback-panel reveal">
+                <div class="feedback-panel-text">
+                    <span class="feedback-panel-icon"><?= icon_svg('star') ?></span>
+                    <div>
+                        <h2>Tell us how we did</h2>
+                        <p>Had a trip with us? A quick rating and a few words helps other travelers, and helps us do better.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="openFeedbackBtn"><?= icon_svg('plus') ?> Add Feedback</button>
+            </div>
+        </div>
+    </section>
+
     <!-- ============================== QUOTE FORMS ============================== -->
     <section class="section" id="quote">
         <div class="container">
@@ -265,8 +281,10 @@
 </main>
 
 <?php require __DIR__ . '/partials/footer.php'; ?>
+<?php require __DIR__ . '/partials/feedback-modal.php'; ?>
 
 <script src="<?= htmlspecialchars(public_asset_url('js/locations-data.js?v=' . ASSET_VERSION)) ?>"></script>
 <script src="<?= htmlspecialchars(public_asset_url('js/main.js?v=' . ASSET_VERSION)) ?>"></script>
+<script src="<?= htmlspecialchars(public_asset_url('js/feedback.js?v=' . ASSET_VERSION)) ?>"></script>
 </body>
 </html>
