@@ -69,6 +69,7 @@
             <div class="vehicle-grid" id="vehicleGrid">
                 <?php foreach ($vehicles as $v): require __DIR__ . '/partials/vehicle-card.php'; endforeach; ?>
             </div>
+            <p class="vehicle-empty" id="vehicleEmpty" hidden>No vehicles in this category yet — <a href="https://wa.me/<?= htmlspecialchars(WHATSAPP_NUMBER) ?>?text=<?= urlencode("Hi " . SITE_NAME . "! Do you have this vehicle type available?") ?>">ask us on WhatsApp</a> and we'll help you out.</p>
 
             <div class="promo-strip reveal">
                 <span><?= icon_svg('key') ?> Looking for something more premium? Luxury vehicles available on open request.</span>

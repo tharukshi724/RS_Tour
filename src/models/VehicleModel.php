@@ -24,6 +24,27 @@ class VehicleModel
         if ($vehicles !== null) return $vehicles;
 
         $vehicles = [
+            // ------------------------------------------------- Bike (SAMPLE)
+            // Placeholder listing so the "Bike" filter has a real card to
+            // show. Replace name/seats/units/blurb with your actual bike(s),
+            // or add more entries the same way — same pattern as Cars below.
+            [
+                'id' => 17, 'name' => 'Honda Dio (sample)', 'category' => 'Bike',
+                'seats' => 2, 'ac' => false, 'price' => null,
+                'units' => ['SAMPLE-BIKE-01'],
+                'blurb' => 'Sample listing — swap in your real bike model, plate number and photo.',
+            ],
+
+            // ------------------------------------------- Threewheel (SAMPLE)
+            // Placeholder listing so the "Threewheel" filter has a real card
+            // to show. Replace with your actual three-wheeler(s).
+            [
+                'id' => 18, 'name' => 'Bajaj Three Wheeler (sample)', 'category' => 'Threewheel',
+                'seats' => 3, 'ac' => false, 'price' => null,
+                'units' => ['SAMPLE-TW-01'],
+                'blurb' => 'Sample listing — swap in your real three-wheeler model, plate number and photo.',
+            ],
+
             // ---------------------------------------------------------- Cars
             [
                 'id' => 1, 'name' => 'Suzuki Alto', 'category' => 'Car',
@@ -50,12 +71,11 @@ class VehicleModel
                 'blurb' => 'Roomy for its size and steady on the highway without drinking fuel.',
             ],
 
-            // ----------------------------------------------------------- SUV
             [
-                'id' => 5, 'name' => 'Honda Vezel', 'category' => 'SUV',
+                'id' => 5, 'name' => 'Honda Vezel', 'category' => 'Car',
                 'seats' => 4, 'ac' => true, 'price' => null,
                 'units' => ['CAC-7518'],
-                'blurb' => 'A compact SUV for when you want a higher seat and a bit more presence.',
+                'blurb' => 'A compact SUV-style car for when you want a higher seat and a bit more presence.',
             ],
 
             // ---------------------------------------------------------- Vans
@@ -139,12 +159,37 @@ class VehicleModel
         return null;
     }
 
-    /** Category names in the order they appear above - drives the filter. */
+    /**
+     * Fixed display order for the "Vehicle Type" filter dropdown.
+     * Edit this list to change the order, or to add a new vehicle type.
+     */
+    private const CATEGORY_ORDER = ['Bike', 'Threewheel', 'Car', 'Van', 'Bus'];
+
+    /**
+     * Categories that should always show up in the filter dropdown even
+     * when there are currently zero vehicles of that type in all() above.
+     * Bike and Threewheel are listed here so the option appears now; once
+     * real vehicles with these categories are added to all(), they show up
+     * automatically and this list stops being the only reason they're shown.
+     */
+    private const ALWAYS_SHOW_CATEGORIES = ['Bike', 'Threewheel'];
+
+    /** Category names for the filter dropdown, in CATEGORY_ORDER. */
     public static function categories(): array
     {
-        $cats = [];
-        foreach (self::all() as $v) $cats[$v['category']] = true;
-        return array_keys($cats);
+        $present = [];
+        foreach (self::all() as $v) $present[$v['category']] = true;
+        $shown = array_unique(array_merge(array_keys($present), self::ALWAYS_SHOW_CATEGORIES));
+
+        usort($shown, function ($a, $b) {
+            $posA = array_search($a, self::CATEGORY_ORDER);
+            $posB = array_search($b, self::CATEGORY_ORDER);
+            $posA = $posA === false ? PHP_INT_MAX : $posA;
+            $posB = $posB === false ? PHP_INT_MAX : $posB;
+            return $posA === $posB ? strcmp($a, $b) : $posA <=> $posB;
+        });
+
+        return $shown;
     }
 
     /** How many actual vehicles are on the road (35), not how many listings. */
@@ -194,9 +239,10 @@ class VehicleModel
     {
         $map = [
             'Car' => 'hatchback,car',
-            'SUV' => 'suv,car',
             'Van' => 'van,minivan',
             'Bus' => 'bus,coach',
+            'Bike' => 'motorbike,scooter',
+            'Threewheel' => 'tuktuk,rickshaw',
         ];
         return $map[$category] ?? 'car';
     }

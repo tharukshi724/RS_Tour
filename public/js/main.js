@@ -44,14 +44,18 @@
     // Vehicle category filter (home page only)
     var categorySelect = document.getElementById('categoryFilter');
     var grid = document.getElementById('vehicleGrid');
+    var emptyState = document.getElementById('vehicleEmpty');
     if (categorySelect && grid) {
         var cards = Array.prototype.slice.call(grid.querySelectorAll('.vcard'));
         categorySelect.addEventListener('change', function () {
             var filter = categorySelect.value;
+            var visibleCount = 0;
             cards.forEach(function (card) {
                 var show = filter === 'all' || card.dataset.category === filter;
                 card.style.display = show ? '' : 'none';
+                if (show) visibleCount++;
             });
+            if (emptyState) emptyState.hidden = visibleCount !== 0;
         });
     }
 
