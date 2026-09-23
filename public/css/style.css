@@ -105,7 +105,7 @@ body.has-hero .navbar:not(.is-scrolled) .nav-toggle span { background: #fff; }
 .brand-slogan { font-size: 12px; font-weight: 700; color: var(--gold-text); text-transform: uppercase; letter-spacing: 1px; }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
 .nav-link-gap { margin-left: 20px; } /* extra breathing room between "Our Packages" and "Our Vehicles" */
-.nav-links a { color: var(--paper); opacity: 0.8; transition: opacity 0.2s, color 0.3s ease; font-weight: 500; }
+.nav-links a { color: var(--paper); opacity: 0.8; transition: opacity 0.2s, color 0.3s ease; font-weight: 500; word-spacing: 2px; }
 .nav-links a:hover { opacity: 1; }
 .nav-cta {
     background: var(--headlight);
@@ -439,13 +439,14 @@ body.has-hero .navbar:not(.is-scrolled) .nav-toggle span { background: #fff; }
     background: linear-gradient(180deg, transparent, rgba(20, 17, 8, 0.55));
     pointer-events: none;
 }
-.vcard-tag-overlay {
+.vcard-tag.vcard-tag-overlay {
     position: absolute;
     top: 14px; left: 14px;
     z-index: 2;
-    background: color-mix(in srgb, var(--cat-color, var(--headlight)) 85%, white 0%);
-    color: var(--ink);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    background: var(--headlight);
+    color: var(--paper);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 .vcard-price-overlay {
     position: absolute;

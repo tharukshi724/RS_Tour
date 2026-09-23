@@ -30,4 +30,4 @@ define('REVIEWS_API_KEY', 'change-me-to-a-long-random-string');
 // Feedback" button on the site.
 define('FEEDBACK_API_KEY', 'change-me-to-a-long-random-string');
 
-define('ASSET_VERSION', '26');
+define('ASSET_VERSION', '27');
