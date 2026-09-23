@@ -3,13 +3,9 @@
  * Single-vehicle card. Expects $v (a vehicle array) in scope.
  * Used by the fleet grid and the "you might also like" strip - the one
  * place this markup exists, so every card on the site stays in sync.
- *
- * One card is one MODEL. Where we run several of the same model, the badge
- * says how many are available; the registration numbers stay off the page.
  */
 $photos = VehicleModel::photos($v);
 $catSlug = category_slug($v['category']);
-$units = VehicleModel::units($v);
 $hasPrice = ($v['price'] ?? null) !== null;
 ?>
 <a class="vcard reveal" href="index.php?page=vehicle&id=<?= $v['id'] ?>"
@@ -29,9 +25,6 @@ $hasPrice = ($v['price'] ?? null) !== null;
     <div class="vcard-body">
         <div class="vcard-top">
             <span class="vcard-name"><?= htmlspecialchars($v['name']) ?></span>
-            <?php if ($units > 1): ?>
-                <span class="vcard-units"><?= $units ?> available</span>
-            <?php endif; ?>
         </div>
         <p class="vcard-blurb"><?= htmlspecialchars($v['blurb']) ?></p>
         <div class="vcard-foot">

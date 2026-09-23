@@ -25,4 +25,9 @@ define('VIDEO_EMBED_URL', ''); // TODO: e.g. 'https://www.youtube.com/embed/XXXX
 // commit the real one to a public repo.
 define('REVIEWS_API_KEY', 'change-me-to-a-long-random-string');
 
-define('ASSET_VERSION', '25');
+// Key for reading public/api/feedback.php (GET ?all=1) once the admin panel
+// exists. Submitting feedback (POST) needs no key - it's the public "Add
+// Feedback" button on the site.
+define('FEEDBACK_API_KEY', 'change-me-to-a-long-random-string');
+
+define('ASSET_VERSION', '26');
